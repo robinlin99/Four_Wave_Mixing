@@ -503,7 +503,7 @@ e_wave3 = e_wave3*Tr_wave3(loop_step);
 
 
 % function that calculates the values of the pulses after each step
-[e_wave1,e_wave2,e_wave3,es_wave1,es_wave2,es_wave3] = step_3wave(e_wave1,e_wave2,e_wave3,deltat,deltaz,deltak,gvd_wave1,gvd_wave2,gvd_wave3,c_chi2_wave1,c_chi2_wave2,c_chi2_wave3,gvm_wave1,gvm_wave2,gvm_wave3,pphase,alpha_wave1,alpha_wave2,alpha_wave3,c_n2a2_wave1,c_n2a2_wave2,c_n2a2_wave3);
+[e_wave1,e_wave2,e_wave3,es_wave1,es_wave2,es_wave3] = step_4wave(e_wave1,e_wave2,e_wave3,deltat,deltaz,deltak,gvd_wave1,gvd_wave2,gvd_wave3,c_chi2_wave1,c_chi2_wave2,c_chi2_wave3,gvm_wave1,gvm_wave2,gvm_wave3,pphase,alpha_wave1,alpha_wave2,alpha_wave3,c_n2a2_wave1,c_n2a2_wave2,c_n2a2_wave3);
 
 pphase = deltak*deltaz + pphase; %% increment in the phase angle
 
