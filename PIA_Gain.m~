@@ -45,16 +45,15 @@ pmp = N_te(x);
 
 %TE/TM Toggle
 if isTE == 1
-    sig_n = N_te         % make all in TE mode   
-    idl_n = N_te
-    sig_gvd = gvd_te
-    idl_gvd = gvd_te
+    sig
+    idl
+    
+    
 else
     if isTE == 0
-        sig_n = N_tm      % make all in TM mode
-        idl_n = N_tm
-        sig_gvd = gvd_tm
-        idl_gvd = gvd_tm
+        sig % make all in TM mode
+        idl
+        
     end
 end
        
