@@ -46,6 +46,7 @@ pmp_n = N_te(x);
 pmp_gvd = gvd_te;
 pmp_b1 = b_1_te;
 pmp_b2 = b_2_te;
+pmp_vg = v_g_te;
 
 %TE/TM Toggle
 if isTE == 1
@@ -57,6 +58,8 @@ if isTE == 1
     idl_b1 = b_1_te;
     sig_b2 = b_2_te;
     idl_b2 = b_2_te; 
+    sig_vg = v_g_te;
+    idl_vg = v_g_te; 
 else
     if isTE == 0
         sig_n = N_tm      % make all in TM mode
@@ -67,6 +70,8 @@ else
         idl_b1 = b_1_tm;
         sig_b2 = b_2_tm;
         idl_b2 = b_2_tm;
+        sig_vg = v_g_tm;
+        idl_vg = v_g_tm;
     end
 end
 
@@ -120,6 +125,10 @@ k_wave3_d=2*pi*n_wave3_d/lambda_wave3; % 3rd wave propagation constant in disord
 %vg_wave2_d = interp1(idl.l, idl.vg, lambda_wave2);
 %vg_wave3_d = interp1(pmp.l, pmp.vg, lambda_wave3);
 
+vg_wave1_d = sig_vg(lambda_wave1);
+vg_wave2_d = idl_vg(lambda_wave2);
+vg_wave3_d = pmp_vg(lambda_wave3);
+
 %% Group Velocity Mismatch Parameters
 
 tao = 1; % pulse duration
@@ -139,11 +148,10 @@ N_wave3_d = 1*(-gamma_wave3_d+gamma_wave3_d)/tao;
 N_wave3_o = N_wave3_d;
 
 %% Group Velocity Dispersion Parameters
+%beta_wave1_o = interp1(sig.l, sig.GVD, lambda_wave1);                      %SH3
+%beta_wave2_o = interp1(idl.l, idl.GVD, lambda_wave2);
+%beta_wave3_o = interp1(pmp.l, pmp.GVD, lambda_wave3);
 
-
-beta_wave1_o = interp1(sig.l, sig.GVD, lambda_wave1);                      %SH3
-beta_wave2_o = interp1(idl.l, idl.GVD, lambda_wave2);
-beta_wave3_o = interp1(pmp.l, pmp.GVD, lambda_wave3);
 
 
 
