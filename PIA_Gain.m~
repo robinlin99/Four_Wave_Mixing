@@ -16,6 +16,7 @@ epsilon = 8.85e-12;
 % Symbolic library
 syms x w 
 % BRW waveguide TE and TM mode refractive index [x is wavelength in meter]
+% Relevant parameters for the 
 N_te(x) = 0.1604e1 + 0.1107e7*x - 0.4101e12*x^2 + 0.5822e17*x^3 + 0.9198e-6/x;
 N_tm(x) = 1.28 + 0.1416e7*x - 0.5435e12*x^2 + 0.7951e17 * x^3 + 0.1039e-5/x;
 N_te_w(w) = subs(N_te,x,2*pi*c/w);
@@ -45,15 +46,16 @@ pmp = N_te(x);
 
 %TE/TM Toggle
 if isTE == 1
-    sig
-    idl
-    
-    
+    sig_n = N_te         % make all in TE mode   
+    idl_n = N_te
+    sig_gvd = gvd_te
+    idl_gvd = gvd_te
 else
     if isTE == 0
-        sig % make all in TM mode
-        idl
-        
+        sig_n = N_tm      % make all in TM mode
+        idl_n = N_tm
+        sig_gvd = gvd_tm
+        idl_gvd = gvd_tm
     end
 end
        

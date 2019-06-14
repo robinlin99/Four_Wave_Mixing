@@ -16,6 +16,7 @@ epsilon = 8.85e-12;
 % Symbolic library
 syms x w 
 % BRW waveguide TE and TM mode refractive index [x is wavelength in meter]
+% Relevant parameters derived from the refractive index profile
 N_te(x) = 0.1604e1 + 0.1107e7*x - 0.4101e12*x^2 + 0.5822e17*x^3 + 0.9198e-6/x;
 N_tm(x) = 1.28 + 0.1416e7*x - 0.5435e12*x^2 + 0.7951e17 * x^3 + 0.1039e-5/x;
 N_te_w(w) = subs(N_te,x,2*pi*c/w);
@@ -41,23 +42,35 @@ b_2_tm_p(x) = subs(b_2_tm,w,2*pi*c/x);
 %pmp = load('SH3_TE_pump.mat');
 %sig = load('SH3_TE_Signal_40nm.mat');
 %idl = load('SH3_TM_idler1540-80nm.mat');
-pmp = N_te(x);
+pmp_n = N_te(x);
+pmp_gvd = gvd_te;
+pmp_b1 = b_1_te;
+pmp_b2 = b_2_te;
 
 %TE/TM Toggle
 if isTE == 1
-    sig_n = N_te         % make all in TE mode   
-    idl_n = N_te
-    sig_gvd = gvd_te
-    idl_gvd = gvd_te
+    sig_n = N_te;         % make all in TE mode   
+    idl_n = N_te;
+    sig_gvd = gvd_te;
+    idl_gvd = gvd_te;
+    sig_b1 = b_1_te;
+    idl_b1 = b_1_te;
+    sig_b2 = b_2_te;
+    idl_b2 = b_2_te; 
 else
     if isTE == 0
         sig_n = N_tm      % make all in TM mode
         idl_n = N_tm
         sig_gvd = gvd_tm
         idl_gvd = gvd_tm
+        sig_b1 = b_1_tm;
+        idl_b1 = b_1_tm;
+        sig_b2 = b_2_tm;
+        idl_b2 = b_2_tm;
     end
 end
-       
+
+%-------OLD CODE -------------------
 %sig.GVD =-(sig.D).* c./((sig.f).^2)/2/pi;
 %sig.l = c./(sig.f);
 %sig.neff = real(sig.neff);
@@ -69,12 +82,12 @@ end
 %pmp.GVD = -(pmp.D).* c./((pmp.f).^2)/2/pi;
 %pmp.l = c./(pmp.f);
 %pmp.neff = real(pmp.neff);
+%------OLD CODE -------------------
 
 L=1*1.0e-3;                         % length of the waveguide
 lambda_wave1= wl*1e-9;        % 1st wave wavelength
 lambda_wave3= pl*1e-9; % 3rd wave wavelength
-lambda_wave2 = 1/(2/lambda_wave3-1/lambda_wave1); % 2nd wavelength
-
+lambda_wave2 = 1/(2/lambda_wave3-1/lambda_wave1); % 2nd wavelength, from energy conservation
 
 k0_1=2*pi/lambda_wave1;        % free-space propagation constant 1st wave
 k0_2=2*pi/lambda_wave2;        % free-space propagation constant 2nd wave
@@ -85,19 +98,20 @@ k0_3=2*pi/lambda_wave3;        % free-space propagation constant 3rd wave
 %n_wave1_d=interp1(sig.l, sig.neff, lambda_wave1);        % SH3
 %n_wave2_d=interp1(idl.l, idl.neff, lambda_wave2);
 %n_wave3_d=interp1(pmp.l, pmp.neff, lambda_wave3);
-
-
+n_wave1 = sig_n(lambda_wave1);
+n_wave2 = idl_n(lambda_wave2);
+n_wave3 = pmp_n(lambda_wave3); 
 %% refractive indices in material as grown
 
-%n_wave1_o=n_wave1_d;
-%n_wave2_o=n_wave2_d;
-%n_wave3_o=n_wave3_d;
+n_wave1_o=n_wave1_d;
+n_wave2_o=n_wave2_d;
+n_wave3_o=n_wave3_d;
 
 %% Propagation constants in the different media
 
-%k_wave1_d=2*pi*n_wave1_d/lambda_wave1; % 1st wave propagation constant in disordered material
-%k_wave2_d=2*pi*n_wave2_d/lambda_wave2; % 2nd wave propagation constant in disordered material
-%k_wave3_d=2*pi*n_wave3_d/lambda_wave3; % 3rd wave propagation constant in disordered material
+k_wave1_d=2*pi*n_wave1_d/lambda_wave1; % 1st wave propagation constant in disordered material
+k_wave2_d=2*pi*n_wave2_d/lambda_wave2; % 2nd wave propagation constant in disordered material
+k_wave3_d=2*pi*n_wave3_d/lambda_wave3; % 3rd wave propagation constant in disordered material
 
 
 %% Group Velocities in the different media
@@ -105,7 +119,6 @@ k0_3=2*pi/lambda_wave3;        % free-space propagation constant 3rd wave
 %vg_wave1_d = interp1(sig.l, sig.vg, lambda_wave1);  % for SH3
 %vg_wave2_d = interp1(idl.l, idl.vg, lambda_wave2);
 %vg_wave3_d = interp1(pmp.l, pmp.vg, lambda_wave3);
-
 
 %% Group Velocity Mismatch Parameters
 
