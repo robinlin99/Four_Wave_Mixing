@@ -542,13 +542,9 @@ zeta = deltaz + zeta; %increment in z
       e_wave3_field(1:length(t),z_count+1)=[e_wave3'];
       i_fft_wave3(1:length(t),z_count+1)=[abs(es_wave3').^2];
       i_fftnorm_wave3(1:length(t),z_count+1)=[abs(es_wave3').^2/max(abs(es_wave3').^2)];
-
-
       %
       distance(z_count+1)=[zeta];
-  end
-
-
+   end
 end;
 power_wave1_L(gradual)=(1e+3)*power_wave1(1)/(2*tmax);
 power_wave2_L(gradual)=(1e+9)*power_wave2(end)/(2*tmax);
