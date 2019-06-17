@@ -152,8 +152,9 @@ N_wave3_o = N_wave3_d;
 %beta_wave2_o = interp1(idl.l, idl.GVD, lambda_wave2);
 %beta_wave3_o = interp1(pmp.l, pmp.GVD, lambda_wave3);
 
-
-
+beta_wave1_o = sig_gvd(lambda_wave1);
+beta_wave2_o = idl_gvd(lambda_wave2);
+beta_wave3_o = pmp_gvd(lambda_wave3);
 
 %% Linear Losses
 
@@ -183,7 +184,6 @@ T0_wave1=100*T0;
 T0_wave2=100*T0;
 T0_wave3=T0;
 f0 = 80e6; % repetition rate of pump laser
-
 
 amp_wave3_sqar=(1.09375*0.2*pump*0.75*10e2)*2^(gradual-1);  %peak power for pulsed pump electric field is square root
 amp_wave1_sqar=1e3*1e-12; 
