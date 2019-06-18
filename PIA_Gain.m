@@ -363,7 +363,6 @@ deltaz_m = z_m./5;
 Structure = {length_m deltaz_m n_wave1_m n_wave2_m n_wave3_m deltak_m chi2_m gvm_wave1_m gvm_wave2_m gvm_wave3_m gvd_wave1_m gvd_wave2_m gvd_wave3_m alpha_wave3_m alpha_wave2_m alpha_wave1_m A_eff_m n2_wave3_m n2_wave2_m n2_wave1_m a2_wave1_m a2_wave2_m a2_wave3_m A_eff_3_m};
 
 %%  Input Field
-
 amp_wave1=0;
 amp_wave2=0;
 amp_wave3=0;
@@ -418,8 +417,6 @@ i_fftnorm_wave1=[];   % 1st wave normalized power spectrum
 i_fftnorm_wave2=[];   % 2nd wave normalized power spectrum
 i_fftnorm_wave3=[];   % 3rd wave normalized power spectrum
 
-
-
 distance(1:numplots+1)=[0];
 phaseplot= [];
 
@@ -465,7 +462,6 @@ Material_step = 2; %material number indicator
 
 for loop_step=1:1:num_period*2*iterations
 
-
 deltaz = Structure{2}(Material_step - 1);
 n_wave1 = Structure{3}(Material_step - 1);
 n_wave2 = Structure{4}(Material_step - 1);
@@ -497,8 +493,10 @@ A_eff_3rd = Structure{24}(Material_step - 1);
 %c_chi2_wave2=-j*chi2*sqrt(8*pi^2/(n_wave1*n_wave2*n_wave3*c*epsilon*lambda_wave2^2*A_eff_2nd));
 %c_chi2_wave3=-j*chi2*sqrt(8*pi^2/(n_wave1*n_wave2*n_wave3*c*epsilon*lambda_wave3^2*A_eff_2nd));
 
-
 %CHI3
+c_chi3_wave1 = 
+c_chi3_wave2 = 
+c_chi3_Wave3 = 
 
 
 c_n2a2_wave1 = (j*2*pi*n2_wave1/lambda_wave1 - a2_wave1/2)/(A_eff_3rd);
