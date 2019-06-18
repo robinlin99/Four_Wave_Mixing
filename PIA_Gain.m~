@@ -45,32 +45,43 @@ b_2_tm_p(x) = subs(b_2_tm,w,2*pi*c/x);
 
 %----------------------------------------------------------------------
 % Process | A_1 | A_2 | A_3 | A_4 | Frequency shift | Condition 
-%    I    |  s  |  f  |  s  |  f  |                 |   beta_2 > 0
-%    II   |  s  |  f  |  f  |  s  |                 |   beta_2 < 0
-%    III  |  s  |  s  |  f  |  f  |                 |   beta_2 > 0 
-%    IV   |  f  |  f  |  s  |  s  |                 |   beta_2 < 0
-%----------------------------------------------------------------------
+%    I
+%    II
 
-% Pump is in TE mode (slow axis)
+
+
 pmp_n = N_te(x);
 pmp_gvd = gvd_te;
 pmp_b1 = b_1_te;
 pmp_b2 = b_2_te;
 pmp_vg = v_g_te;
 
-
-% Signal and idler are in TM mode (fast axis) 
-sig_n = N_tm      % make all in TM mode
-idl_n = N_tm
-sig_gvd = gvd_tm
-idl_gvd = gvd_tm
-sig_b1 = b_1_tm;
-idl_b1 = b_1_tm;
-sig_b2 = b_2_tm;
-idl_b2 = b_2_tm;
-sig_vg = v_g_tm;
-idl_vg = v_g_tm;
-
+%TE/TM Toggle
+if isTE == 1
+    sig_n = N_te;         % make all in TE mode   
+    idl_n = N_te;
+    sig_gvd = gvd_te;
+    idl_gvd = gvd_te;
+    sig_b1 = b_1_te;
+    idl_b1 = b_1_te;
+    sig_b2 = b_2_te;
+    idl_b2 = b_2_te; 
+    sig_vg = v_g_te;
+    idl_vg = v_g_te; 
+else
+    if isTE == 0
+        sig_n = N_tm      % make all in TM mode
+        idl_n = N_tm
+        sig_gvd = gvd_tm
+        idl_gvd = gvd_tm
+        sig_b1 = b_1_tm;
+        idl_b1 = b_1_tm;
+        sig_b2 = b_2_tm;
+        idl_b2 = b_2_tm;
+        sig_vg = v_g_tm;
+        idl_vg = v_g_tm;
+    end
+end
 
 %-------OLD CODE -------------------
 %sig.GVD =-(sig.D).* c./((sig.f).^2)/2/pi;
