@@ -10,6 +10,12 @@ t0=clock;
 j=sqrt(-1);   % imaginary unit
 PSA = 1;
 %wlstep=6;      % signal and idler wavelength difference in the unit of nm
+
+%% Assignment for Idler, Signal, and Pump
+
+% 1 - Signal
+% 2 - Idler
+% 3 - Pump
 %% input data
 c=299792458   ;                 % velocity of light
 epsilon = 8.85e-12;
