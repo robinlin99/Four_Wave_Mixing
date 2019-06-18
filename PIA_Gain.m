@@ -494,10 +494,9 @@ A_eff_3rd = Structure{24}(Material_step - 1);
 %c_chi2_wave3=-j*chi2*sqrt(8*pi^2/(n_wave1*n_wave2*n_wave3*c*epsilon*lambda_wave3^2*A_eff_2nd));
 
 %CHI3
-c_chi3_wave1 = 
-c_chi3_wave2 = 
-c_chi3_Wave3 = 
-
+c_chi3_wave1 = j*
+c_chi3_wave2 = j*
+c_chi3_Wave3 = j*
 
 c_n2a2_wave1 = (j*2*pi*n2_wave1/lambda_wave1 - a2_wave1/2)/(A_eff_3rd);
 c_n2a2_wave2 = (j*2*pi*n2_wave2/lambda_wave2 - a2_wave2/2)/(A_eff_3rd);
