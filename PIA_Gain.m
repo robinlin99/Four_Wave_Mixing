@@ -52,7 +52,7 @@ b_2_tm_p(x) = subs(b_2_tm,w,2*pi*c/x);
 %----------------------------------------------------------------------
 
 % Pump is in TE mode (slow axis)
-pmp_n = N_te(x);
+pmp_n = N_te;
 pmp_gvd = gvd_te;
 pmp_b1 = b_1_te;
 pmp_b2 = b_2_te;
@@ -99,9 +99,9 @@ k0_3=2*pi/lambda_wave3;        % free-space propagation constant 3rd wave
 %n_wave1_d=interp1(sig.l, sig.neff, lambda_wave1);        % SH3
 %n_wave2_d=interp1(idl.l, idl.neff, lambda_wave2);
 %n_wave3_d=interp1(pmp.l, pmp.neff, lambda_wave3);
-n_wave1 = sig_n(lambda_wave1);
-n_wave2 = idl_n(lambda_wave2);
-n_wave3 = pmp_n(lambda_wave3); 
+n_wave1_d = double(sig_n(lambda_wave1));
+n_wave2_d = double(idl_n(lambda_wave2));
+n_wave3_d = double(pmp_n(lambda_wave3)); 
 %% refractive indices in material as grown
 
 n_wave1_o=n_wave1_d;
@@ -121,9 +121,9 @@ k_wave3_d=2*pi*n_wave3_d/lambda_wave3; % 3rd wave propagation constant in disord
 %vg_wave2_d = interp1(idl.l, idl.vg, lambda_wave2);
 %vg_wave3_d = interp1(pmp.l, pmp.vg, lambda_wave3);
 
-vg_wave1_d = sig_vg(lambda_wave1);
-vg_wave2_d = idl_vg(lambda_wave2);
-vg_wave3_d = pmp_vg(lambda_wave3);
+vg_wave1_d = double(sig_vg(lambda_wave1));
+vg_wave2_d = double(idl_vg(lambda_wave2));
+vg_wave3_d = double(pmp_vg(lambda_wave3));
 
 %% Group Velocity Mismatch Parameters
 
@@ -148,9 +148,9 @@ N_wave3_o = N_wave3_d;
 %beta_wave2_o = interp1(idl.l, idl.GVD, lambda_wave2);
 %beta_wave3_o = interp1(pmp.l, pmp.GVD, lambda_wave3);
 
-beta_wave1_o = sig_gvd(lambda_wave1);
-beta_wave2_o = idl_gvd(lambda_wave2);
-beta_wave3_o = pmp_gvd(lambda_wave3);
+beta_wave1_o = double(sig_gvd(lambda_wave1));
+beta_wave2_o = double(idl_gvd(lambda_wave2));
+beta_wave3_o = double(pmp_gvd(lambda_wave3));
 
 %% Linear Losses
 

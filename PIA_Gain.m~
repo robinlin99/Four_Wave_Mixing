@@ -52,7 +52,7 @@ b_2_tm_p(x) = subs(b_2_tm,w,2*pi*c/x);
 %----------------------------------------------------------------------
 
 % Pump is in TE mode (slow axis)
-pmp_n = N_te(x);
+pmp_n = N_te;
 pmp_gvd = gvd_te;
 pmp_b1 = b_1_te;
 pmp_b2 = b_2_te;
@@ -99,9 +99,9 @@ k0_3=2*pi/lambda_wave3;        % free-space propagation constant 3rd wave
 %n_wave1_d=interp1(sig.l, sig.neff, lambda_wave1);        % SH3
 %n_wave2_d=interp1(idl.l, idl.neff, lambda_wave2);
 %n_wave3_d=interp1(pmp.l, pmp.neff, lambda_wave3);
-n_wave1 = sig_n(lambda_wave1);
-n_wave2 = idl_n(lambda_wave2);
-n_wave3 = pmp_n(lambda_wave3); 
+n_wave1_d = sig_n(lambda_wave1);
+n_wave2_d = idl_n(lambda_wave2);
+n_wave3_d = pmp_n(lambda_wave3); 
 %% refractive indices in material as grown
 
 n_wave1_o=n_wave1_d;
@@ -494,9 +494,9 @@ A_eff_3rd = Structure{24}(Material_step - 1);
 %c_chi2_wave3=-j*chi2*sqrt(8*pi^2/(n_wave1*n_wave2*n_wave3*c*epsilon*lambda_wave3^2*A_eff_2nd));
 
 %CHI3
-c_chi3_wave1 = j*(n2_wave1
-c_chi3_wave2 = j*(n2_wave2
-c_chi3_Wave3 = j*
+c_chi3_wave1 = j*(n2_wave1*2*pi)/(A_eff_2nd*lambda_wave1);
+c_chi3_wave2 = j*(n2_wave2*2*pi)/(A_eff_2nd*lambda_wave2);
+c_chi3_wave3 = j*(n2_wave3*2*pi)/(A_eff_2nd*lambda_wave3);
 
 c_n2a2_wave1 = (j*2*pi*n2_wave1/lambda_wave1 - a2_wave1/2)/(A_eff_3rd);
 c_n2a2_wave2 = (j*2*pi*n2_wave2/lambda_wave2 - a2_wave2/2)/(A_eff_3rd);
