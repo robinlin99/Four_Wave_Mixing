@@ -281,8 +281,6 @@ Tr_wave3(1:num_period*2*iterations+2) = 1;
 Tr_wave2(1:num_period*2*iterations+2) = 1;
 Tr_wave1(1:num_period*2*iterations+2) = 1;
 
-
-
 if simm == 1
 %     lc_1 = lc_o;
       lc_1 = L/(2*num_period);
@@ -324,7 +322,6 @@ gvd_wave3_m(1:zStepL-1,length(gvd_wave3_d)) = [0];
 A_eff_3_m(1:zStepL-1) = [0];
 
 for zstep = 1:zStepL-1
-    
     z_m(zstep) = lc_1;
     n_wave1_m(zstep) = n_wave1_o;
     n_wave2_m(zstep) = n_wave2_o;
@@ -367,8 +364,6 @@ Structure = {length_m deltaz_m n_wave1_m n_wave2_m n_wave3_m deltak_m chi2_m gvm
 
 %%  Input Field
 
-
-
 amp_wave1=0;
 amp_wave2=0;
 amp_wave3=0;
@@ -382,7 +377,6 @@ power_wave1_L=[];
 power_wave2_L=[];
 power_wave3_L=[];
 eta_L=[];
-
 
 for gradual=1:1:gradual_max
    
@@ -569,7 +563,6 @@ power_wave3_L(gradual)=(1e+3)*power_wave3(1)/(2*tmax);
 eta_L(gradual)=100*power_wave2_L(gradual)*(1e-3)/(power_wave3_L(gradual)*power_wave1_L(gradual));
 end
 %% signal gain
-
         x = 1e3*L*x;
         gain = 10*log10( power_wave1);
         signal_gain = gain -  10*log10(power_wave1(1));
