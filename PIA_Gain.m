@@ -1,4 +1,4 @@
-function rst = PIA_Gain(wl, pump, pl, isTE)
+function rst = PIA_Gain(wl, pump, pl)
 
 %  2-D BPM code
 %  chi3 (quadratic) nonlinear material
