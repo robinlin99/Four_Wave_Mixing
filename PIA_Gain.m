@@ -424,8 +424,6 @@ distance(1:numplots+1)=[0];
 phaseplot= [];
 
 %% Memory Pre-Allocation
-
-
       power_wave1(1:numplots+1)=[deltat*sum((abs(e_wave1).^2))] ;
       i_wave1(1:length(t),1:numplots+1)=[0];
       i_wave1(1:length(t),1)=[abs(e_wave1').^2];      
@@ -461,9 +459,6 @@ phaseplot= [];
       i_fft_wave3(1:length(t),1)=[abs(deltat*fftshift(fft(e_wave3'))).^2 ];      
       i_fftnorm_wave3(1:length(t),1:numplots+1)=[0];
       i_fftnorm_wave3(1:length(t),1)=[abs(fftshift(fft(e_wave3'))).^2/max(abs(fftshift(fft(e_wave3'))).^2) ];   
-
-
-
 %% MAIN PROGRAM
 z_count = 0;
 Material_step = 2; %material number indicator
@@ -496,10 +491,15 @@ a2_wave3 = Structure{23}(Material_step - 1);
 A_eff_3rd = Structure{24}(Material_step - 1);
 
 % coupling coefficients
+%---------------------------------------------------------------------------------------------------
+% CHI2
+%c_chi2_wave1=-j*chi2*sqrt(8*pi^2/(n_wave1*n_wave2*n_wave3*c*epsilon*lambda_wave1^2*A_eff_2nd));
+%c_chi2_wave2=-j*chi2*sqrt(8*pi^2/(n_wave1*n_wave2*n_wave3*c*epsilon*lambda_wave2^2*A_eff_2nd));
+%c_chi2_wave3=-j*chi2*sqrt(8*pi^2/(n_wave1*n_wave2*n_wave3*c*epsilon*lambda_wave3^2*A_eff_2nd));
 
-c_chi2_wave1=-j*chi2*sqrt(8*pi^2/(n_wave1*n_wave2*n_wave3*c*epsilon*lambda_wave1^2*A_eff_2nd));
-c_chi2_wave2=-j*chi2*sqrt(8*pi^2/(n_wave1*n_wave2*n_wave3*c*epsilon*lambda_wave2^2*A_eff_2nd));
-c_chi2_wave3=-j*chi2*sqrt(8*pi^2/(n_wave1*n_wave2*n_wave3*c*epsilon*lambda_wave3^2*A_eff_2nd));
+
+%CHI3
+
 
 c_n2a2_wave1 = (j*2*pi*n2_wave1/lambda_wave1 - a2_wave1/2)/(A_eff_3rd);
 c_n2a2_wave2 = (j*2*pi*n2_wave2/lambda_wave2 - a2_wave2/2)/(A_eff_3rd);
