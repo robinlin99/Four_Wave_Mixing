@@ -494,9 +494,9 @@ A_eff_3rd = Structure{24}(Material_step - 1);
 %c_chi2_wave3=-j*chi2*sqrt(8*pi^2/(n_wave1*n_wave2*n_wave3*c*epsilon*lambda_wave3^2*A_eff_2nd));
 
 %CHI3
-c_chi3_wave1 = j*
-c_chi3_wave2 = j*
-c_chi3_Wave3 = j*
+c_chi3_wave1 = j*(n2_wave1*2*pi)/(A_eff_2nd*lambda_wave1);
+c_chi3_wave2 = j*(n2_wave2*2*pi)/(A_eff_2nd*lambda_wave2)
+c_chi3_wave3 = j*(n2_wave3*2*pi)/(A_eff_2nd*lambda_wave3)
 
 c_n2a2_wave1 = (j*2*pi*n2_wave1/lambda_wave1 - a2_wave1/2)/(A_eff_3rd);
 c_n2a2_wave2 = (j*2*pi*n2_wave2/lambda_wave2 - a2_wave2/2)/(A_eff_3rd);
@@ -510,7 +510,7 @@ e_wave3 = e_wave3*Tr_wave3(loop_step);
 
 
 % function that calculates the values of the pulses after each step
-[e_wave1,e_wave2,e_wave3,es_wave1,es_wave2,es_wave3] = step_4wave(e_wave1,e_wave2,e_wave3,deltat,deltaz,deltak,gvd_wave1,gvd_wave2,gvd_wave3,c_chi2_wave1,c_chi2_wave2,c_chi2_wave3,gvm_wave1,gvm_wave2,gvm_wave3,pphase,alpha_wave1,alpha_wave2,alpha_wave3,c_n2a2_wave1,c_n2a2_wave2,c_n2a2_wave3);
+[e_wave1,e_wave2,e_wave3,es_wave1,es_wave2,es_wave3] = step_4wave(e_wave1,e_wave2,e_wave3,deltat,deltaz,deltak,gvd_wave1,gvd_wave2,gvd_wave3,c_chi3_wave1,c_chi3_wave2,c_chi3_wave3,gvm_wave1,gvm_wave2,gvm_wave3,pphase,alpha_wave1,alpha_wave2,alpha_wave3,c_n2a2_wave1,c_n2a2_wave2,c_n2a2_wave3);
 
 pphase = deltak*deltaz + pphase; %% increment in the phase angle
 

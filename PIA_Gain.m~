@@ -1,4 +1,4 @@
-function rst = PIA_Gain(wl, pump, pl, isTE)
+function rst = PIA_Gain(wl, pump, pl)
 
 %  2-D BPM code
 %  chi3 (quadratic) nonlinear material
@@ -322,7 +322,6 @@ gvd_wave3_m(1:zStepL-1,length(gvd_wave3_d)) = [0];
 A_eff_3_m(1:zStepL-1) = [0];
 
 for zstep = 1:zStepL-1
-    
     z_m(zstep) = lc_1;
     n_wave1_m(zstep) = n_wave1_o;
     n_wave2_m(zstep) = n_wave2_o;
@@ -364,9 +363,6 @@ deltaz_m = z_m./5;
 Structure = {length_m deltaz_m n_wave1_m n_wave2_m n_wave3_m deltak_m chi2_m gvm_wave1_m gvm_wave2_m gvm_wave3_m gvd_wave1_m gvd_wave2_m gvd_wave3_m alpha_wave3_m alpha_wave2_m alpha_wave1_m A_eff_m n2_wave3_m n2_wave2_m n2_wave1_m a2_wave1_m a2_wave2_m a2_wave3_m A_eff_3_m};
 
 %%  Input Field
-
-
-
 amp_wave1=0;
 amp_wave2=0;
 amp_wave3=0;
@@ -380,7 +376,6 @@ power_wave1_L=[];
 power_wave2_L=[];
 power_wave3_L=[];
 eta_L=[];
-
 
 for gradual=1:1:gradual_max
    
@@ -422,14 +417,10 @@ i_fftnorm_wave1=[];   % 1st wave normalized power spectrum
 i_fftnorm_wave2=[];   % 2nd wave normalized power spectrum
 i_fftnorm_wave3=[];   % 3rd wave normalized power spectrum
 
-
-
 distance(1:numplots+1)=[0];
 phaseplot= [];
 
 %% Memory Pre-Allocation
-
-
       power_wave1(1:numplots+1)=[deltat*sum((abs(e_wave1).^2))] ;
       i_wave1(1:length(t),1:numplots+1)=[0];
       i_wave1(1:length(t),1)=[abs(e_wave1').^2];      
@@ -465,15 +456,11 @@ phaseplot= [];
       i_fft_wave3(1:length(t),1)=[abs(deltat*fftshift(fft(e_wave3'))).^2 ];      
       i_fftnorm_wave3(1:length(t),1:numplots+1)=[0];
       i_fftnorm_wave3(1:length(t),1)=[abs(fftshift(fft(e_wave3'))).^2/max(abs(fftshift(fft(e_wave3'))).^2) ];   
-
-
-
 %% MAIN PROGRAM
 z_count = 0;
 Material_step = 2; %material number indicator
 
 for loop_step=1:1:num_period*2*iterations
-
 
 deltaz = Structure{2}(Material_step - 1);
 n_wave1 = Structure{3}(Material_step - 1);
@@ -500,10 +487,16 @@ a2_wave3 = Structure{23}(Material_step - 1);
 A_eff_3rd = Structure{24}(Material_step - 1);
 
 % coupling coefficients
+%---------------------------------------------------------------------------------------------------
+% CHI2
+%c_chi2_wave1=-j*chi2*sqrt(8*pi^2/(n_wave1*n_wave2*n_wave3*c*epsilon*lambda_wave1^2*A_eff_2nd));
+%c_chi2_wave2=-j*chi2*sqrt(8*pi^2/(n_wave1*n_wave2*n_wave3*c*epsilon*lambda_wave2^2*A_eff_2nd));
+%c_chi2_wave3=-j*chi2*sqrt(8*pi^2/(n_wave1*n_wave2*n_wave3*c*epsilon*lambda_wave3^2*A_eff_2nd));
 
-c_chi2_wave1=-j*chi2*sqrt(8*pi^2/(n_wave1*n_wave2*n_wave3*c*epsilon*lambda_wave1^2*A_eff_2nd));
-c_chi2_wave2=-j*chi2*sqrt(8*pi^2/(n_wave1*n_wave2*n_wave3*c*epsilon*lambda_wave2^2*A_eff_2nd));
-c_chi2_wave3=-j*chi2*sqrt(8*pi^2/(n_wave1*n_wave2*n_wave3*c*epsilon*lambda_wave3^2*A_eff_2nd));
+%CHI3
+c_chi3_wave1 = j*(n2_wave1
+c_chi3_wave2 = j*(n2_wave2
+c_chi3_Wave3 = j*
 
 c_n2a2_wave1 = (j*2*pi*n2_wave1/lambda_wave1 - a2_wave1/2)/(A_eff_3rd);
 c_n2a2_wave2 = (j*2*pi*n2_wave2/lambda_wave2 - a2_wave2/2)/(A_eff_3rd);
@@ -517,7 +510,7 @@ e_wave3 = e_wave3*Tr_wave3(loop_step);
 
 
 % function that calculates the values of the pulses after each step
-[e_wave1,e_wave2,e_wave3,es_wave1,es_wave2,es_wave3] = step_4wave(e_wave1,e_wave2,e_wave3,deltat,deltaz,deltak,gvd_wave1,gvd_wave2,gvd_wave3,c_chi2_wave1,c_chi2_wave2,c_chi2_wave3,gvm_wave1,gvm_wave2,gvm_wave3,pphase,alpha_wave1,alpha_wave2,alpha_wave3,c_n2a2_wave1,c_n2a2_wave2,c_n2a2_wave3);
+[e_wave1,e_wave2,e_wave3,es_wave1,es_wave2,es_wave3] = step_4wave(e_wave1,e_wave2,e_wave3,deltat,deltaz,deltak,gvd_wave1,gvd_wave2,gvd_wave3,c_chi3_wave1,c_chi3_wave2,c_chi3_wave3,gvm_wave1,gvm_wave2,gvm_wave3,pphase,alpha_wave1,alpha_wave2,alpha_wave3,c_n2a2_wave1,c_n2a2_wave2,c_n2a2_wave3);
 
 pphase = deltak*deltaz + pphase; %% increment in the phase angle
 
@@ -567,7 +560,6 @@ power_wave3_L(gradual)=(1e+3)*power_wave3(1)/(2*tmax);
 eta_L(gradual)=100*power_wave2_L(gradual)*(1e-3)/(power_wave3_L(gradual)*power_wave1_L(gradual));
 end
 %% signal gain
-
         x = 1e3*L*x;
         gain = 10*log10( power_wave1);
         signal_gain = gain -  10*log10(power_wave1(1));
