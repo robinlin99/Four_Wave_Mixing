@@ -10,6 +10,12 @@ t0=clock;
 j=sqrt(-1);   % imaginary unit
 PSA = 1;
 %wlstep=6;      % signal and idler wavelength difference in the unit of nm
+
+%% Assignment for Idler, Signal, and Pump
+
+% 1 - Signal
+% 2 - Idler
+% 3 - Pump
 %% input data
 c=299792458   ;                 % velocity of light
 epsilon = 8.85e-12;
@@ -99,9 +105,9 @@ k0_3=2*pi/lambda_wave3;        % free-space propagation constant 3rd wave
 %n_wave1_d=interp1(sig.l, sig.neff, lambda_wave1);        % SH3
 %n_wave2_d=interp1(idl.l, idl.neff, lambda_wave2);
 %n_wave3_d=interp1(pmp.l, pmp.neff, lambda_wave3);
-n_wave1_d = sig_n(lambda_wave1);
-n_wave2_d = idl_n(lambda_wave2);
-n_wave3_d = pmp_n(lambda_wave3); 
+n_wave1_d = double(sig_n(sym(lambda_wave1)));
+n_wave2_d = double(idl_n(sym(lambda_wave2)));
+n_wave3_d = double(pmp_n(sym(lambda_wave3))); 
 %% refractive indices in material as grown
 
 n_wave1_o=n_wave1_d;
@@ -121,9 +127,9 @@ k_wave3_d=2*pi*n_wave3_d/lambda_wave3; % 3rd wave propagation constant in disord
 %vg_wave2_d = interp1(idl.l, idl.vg, lambda_wave2);
 %vg_wave3_d = interp1(pmp.l, pmp.vg, lambda_wave3);
 
-vg_wave1_d = sig_vg(lambda_wave1);
-vg_wave2_d = idl_vg(lambda_wave2);
-vg_wave3_d = pmp_vg(lambda_wave3);
+vg_wave1_d = double(sig_vg(sym(lambda_wave1)));
+vg_wave2_d = double(idl_vg(sym(lambda_wave2)));
+vg_wave3_d = double(pmp_vg(sym(lambda_wave3)));
 
 %% Group Velocity Mismatch Parameters
 
@@ -148,9 +154,9 @@ N_wave3_o = N_wave3_d;
 %beta_wave2_o = interp1(idl.l, idl.GVD, lambda_wave2);
 %beta_wave3_o = interp1(pmp.l, pmp.GVD, lambda_wave3);
 
-beta_wave1_o = sig_gvd(lambda_wave1);
-beta_wave2_o = idl_gvd(lambda_wave2);
-beta_wave3_o = pmp_gvd(lambda_wave3);
+beta_wave1_o = double(sig_gvd(sym(lambda_wave1)));
+beta_wave2_o = double(idl_gvd(sym(lambda_wave2)));
+beta_wave3_o = double(pmp_gvd(sym(lambda_wave3)));
 
 %% Linear Losses
 

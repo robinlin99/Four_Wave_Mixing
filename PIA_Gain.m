@@ -33,10 +33,10 @@ b_1_te(w) = (1/c)*(N_te_w+w*d_te);
 b_2_te(w) = (1/c)*(2*d_te+w*diff(d_te));
 b_1_tm(w) = (1/c)*(N_tm_w+w*d_tm);
 b_2_tm(w) = (1/c)*(2*d_tm+w*diff(d_tm));
-v_g_te = c/(N_te_w+w*d_te);
-v_g_tm = c/(N_tm_w+w*d_tm);
-gvd_te = subs(diff(1/v_g_te),w,2*pi*c/x);
-gvd_tm = subs(diff(1/v_g_tm),w,2*pi*c/x);
+v_g_te(w) = c/(N_te_w+w*d_te);
+v_g_tm(w) = c/(N_tm_w+w*d_tm);
+gvd_te(x) = subs(diff(1/v_g_te),w,2*pi*c/x);
+gvd_tm(x) = subs(diff(1/v_g_tm),w,2*pi*c/x);
 % Substitute wavelength back in to the equation 
 b_1_te_p(x) = subs(b_1_te,w,2*pi*c/x);
 b_2_te_p(x) = subs(b_2_te,w,2*pi*c/x);
