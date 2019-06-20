@@ -92,9 +92,9 @@ idl_vg = v_g_tm;
 %------OLD CODE -------------------
 
 L=1*1.0e-3;                         % length of the waveguide
-lambda_wave1= wl*1e-9;        % 1st wave wavelength
-lambda_wave3= pl*1e-9; % 3rd wave wavelength
-lambda_wave2 = 1/(2/lambda_wave3-1/lambda_wave1); % 2nd wavelength, from energy conservation
+lambda_wave1= wl*1e-9;        % 1st wave wavelength (signal)
+lambda_wave3= pl*1e-9; % 3rd wave wavelength (pump)
+lambda_wave2 = 1/(2/lambda_wave3-1/lambda_wave1); % 2nd wavelength, from energy conservation, (idler) 
 
 k0_1=2*pi/lambda_wave1;        % free-space propagation constant 1st wave
 k0_2=2*pi/lambda_wave2;        % free-space propagation constant 2nd wave
