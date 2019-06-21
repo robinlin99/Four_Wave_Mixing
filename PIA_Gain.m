@@ -65,10 +65,10 @@ pmp_b2 = b_2_te;
 pmp_vg = v_g_te;
 
 % Signal and idler are in TM mode (fast axis) 
-sig_n = N_tm      % make all in TM mode
-idl_n = N_tm
-sig_gvd = gvd_tm
-idl_gvd = gvd_tm
+sig_n = N_tm;      % make all in TM mode
+idl_n = N_tm;
+sig_gvd = gvd_tm;
+idl_gvd = gvd_tm;
 sig_b1 = b_1_tm;
 idl_b1 = b_1_tm;
 sig_b2 = b_2_tm;
@@ -160,20 +160,19 @@ beta_wave3_o = double(pmp_gvd(lambda_wave3));
 
 %% Linear Losses
 
-alpha_wave3_o = 500;
+alpha_wave3_o = 200;
 alpha_wave2_o = 200;
 alpha_wave1_o = 200;
 
 %% n2
 
-n2_wave1_o = 1*344*1e-20;            %SH3
-n2_wave2_o = 1*367*1e-20;
-n2_wave3_o = 1*(-124)*1e-20;
+n2_wave1_o = 1*100*1e-20;            %SH3
+n2_wave2_o = 1*100*1e-20;
+n2_wave3_o = 600*1e-20;
 %% alpha2 two photon absorption
 a2_wave1_o = 1.5*1e-12;                 % SH3
 a2_wave2_o = 1.5*1e-12;
-a2_wave3_o = 1*115*1e-12;
-
+a2_wave3_o = 1.5*1e-12;
 
 %% The pump and signal power amplitude
 gradual = 1;
@@ -193,7 +192,7 @@ x = 0:0.01:1;
 
 % K1 and K2 -> Idler
 % K3 -> Pump
-deltak_d = k_wave1_d + k_wave2_d - 2*k_wave3_d;
+deltak_d = -2*k_wave3_d + k_wave1_d + k_wave2_d;
 deltak_o = deltak_d;
 
 lc_d = pi/deltak_d; % coherent length in disordered material
@@ -500,9 +499,9 @@ A_eff_3rd = Structure{24}(Material_step - 1);
 %c_chi2_wave3=-j*chi2*sqrt(8*pi^2/(n_wave1*n_wave2*n_wave3*c*epsilon*lambda_wave3^2*A_eff_2nd));
 
 %CHI3
-c_chi3_wave1 = j*(n2_wave1*2*pi)/(A_eff_2nd*lambda_wave1);
-c_chi3_wave2 = j*(n2_wave2*2*pi)/(A_eff_2nd*lambda_wave2);
-c_chi3_wave3 = j*(n2_wave3*2*pi)/(A_eff_2nd*lambda_wave3);
+c_chi3_wave1 = 2*j*(n2_wave1*2*pi)/(A_eff_3rd*lambda_wave1);
+c_chi3_wave2 = 2*j*(n2_wave2*2*pi)/(A_eff_3rd*lambda_wave2);
+c_chi3_wave3 = 2*j*(n2_wave3*2*pi)/(A_eff_3rd*lambda_wave3);
 
 c_n2a2_wave1 = (j*2*pi*n2_wave1/lambda_wave1 - a2_wave1/2)/(A_eff_3rd);
 c_n2a2_wave2 = (j*2*pi*n2_wave2/lambda_wave2 - a2_wave2/2)/(A_eff_3rd);

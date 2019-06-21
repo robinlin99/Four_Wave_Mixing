@@ -4,7 +4,7 @@ function [] = simulation_scan_4wave(min,max)
 % Need to find the phase-matching condition
 % No output
     for l = min:max
-        PIA_Gain(l,20,1310)
+        PIA_Gain(l,200,1310)
     end
 end
 

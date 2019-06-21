@@ -4,21 +4,21 @@ function [e_wave1,e_wave2,e_wave3,es_wave1,es_wave2,es_wave3] = step_4wave(e_wav
 %  wave1: FFT and linear half step
     j = sqrt(-1);
     es_wave1=deltat*fftshift(fft(e_wave1)); % FFT
-    fact_wave1=-j.*gvd_wave1.*deltaz+j.*gvm_wave1.*deltaz-0.5*alpha_wave1.*deltaz;
+    fact_wave1=-j.*gvd_wave1.*deltaz-j.*gvm_wave1.*deltaz-0.5*alpha_wave1.*deltaz;
     es_wave1=exp(fact_wave1*0.5).*es_wave1;
 %  FF: IFFT
     e_wave1=(1/deltat)*ifft(ifftshift(es_wave1));
     
 %  wave2: FFT and linear half tep4
     es_wave2=deltat*fftshift(fft(e_wave2)); % FFT
-    fact_wave2=-j.*gvd_wave2.*deltaz+j.*gvm_wave2.*deltaz-0.5*alpha_wave2.*deltaz;
+    fact_wave2=-j.*gvd_wave2.*deltaz-j.*gvm_wave2.*deltaz-0.5*alpha_wave2.*deltaz;
     es_wave2=exp(fact_wave2*0.5).*es_wave2;
 %  FF: IFFT
     e_wave2=(1/deltat)*ifft(ifftshift(es_wave2));
     
 %  wave3: FFT and linear half step
     es_wave3=deltat*fftshift(fft(e_wave3)); % FFT
-    fact_wave3=-j.*gvd_wave3.*deltaz+j.*gvm_wave3.*deltaz-0.5*alpha_wave3.*deltaz;
+    fact_wave3=-j.*gvd_wave3.*deltaz-j.*gvm_wave3.*deltaz-0.5*alpha_wave3.*deltaz;
     es_wave3=exp(fact_wave3*0.5).*es_wave3;
 % SH: IFFT
     e_wave3=(1/deltat)*ifft(ifftshift(es_wave3));
@@ -60,21 +60,21 @@ function [e_wave1,e_wave2,e_wave3,es_wave1,es_wave2,es_wave3] = step_4wave(e_wav
 %% 2nd Linear Half Step   
 %  wave1: FFT and linear half step
     es_wave1=deltat*fftshift(fft(e_wave1)); % FFT
-    fact_wave1=-j.*gvd_wave1.*deltaz+j.*gvm_wave1.*deltaz-0.5*alpha_wave1.*deltaz;
+    fact_wave1=-j.*gvd_wave1.*deltaz-j.*gvm_wave1.*deltaz-0.5*alpha_wave1.*deltaz;
     es_wave1=exp(fact_wave1*0.5).*es_wave1;
 %  FF: IFFT
     e_wave1=(1/deltat)*ifft(ifftshift(es_wave1));
     
 %  wave2: FFT and linear half tep
     es_wave2=deltat*fftshift(fft(e_wave2)); % FFT
-    fact_wave2=-j.*gvd_wave2.*deltaz+j.*gvm_wave2.*deltaz-0.5*alpha_wave2.*deltaz;
+    fact_wave2=-j.*gvd_wave2.*deltaz-j.*gvm_wave2.*deltaz-0.5*alpha_wave2.*deltaz;
     es_wave2=exp(fact_wave2*0.5).*es_wave2;
 %  FF: IFFT
     e_wave2=(1/deltat)*ifft(ifftshift(es_wave2));
     
 %  wave3: FFT and linear half step
     es_wave3=deltat*fftshift(fft(e_wave3)); % FFT
-    fact_wave3=-j.*gvd_wave3.*deltaz+j.*gvm_wave3.*deltaz-0.5*alpha_wave3.*deltaz;
+    fact_wave3=-j.*gvd_wave3.*deltaz-j.*gvm_wave3.*deltaz-0.5*alpha_wave3.*deltaz;
     es_wave3=exp(fact_wave3*0.5).*es_wave3;
 % SH: IFFT
     e_wave3=(1/deltat)*ifft(ifftshift(es_wave3));
