@@ -27,6 +27,10 @@ function [e_wave1,e_wave2,e_wave3] = step_4wave_nd(e_wave1,e_wave2,e_wave3,delta
     m4=c_chi3_wave3*conj(e_wave3 + deltaz*m3).*(e_wave2 + deltaz*k3).*(e_wave1 + deltaz*j3).*exp(j*(pphase+deltak*deltaz))+ c_n2a2_wave3*(conj(e_wave3+deltaz*m3).*(e_wave3+deltaz*m3)).*(e_wave3+deltaz*m3);
     
 
+
+
+
+ 
     e_wave1=e_wave1+(j1+2*j2+2*j3+j4)*deltaz/6;
     e_wave2=e_wave2+(k1+2*k2+2*k3+k4)*deltaz/6;
     e_wave3=e_wave3+(m1+2*m2+2*m3+m4)*deltaz/6;
