@@ -13,9 +13,9 @@ PSA = 1;
 
 %% Assignment for Idler, Signal, and Pump
 
-% 1 - Signal
-% 2 - Idler
-% 3 - Pump
+% A1 - Signal
+% A2 - Idler
+% A3 - Pump
 %% input data
 c=299792458   ;                 % velocity of light
 epsilon = 8.85e-12;
