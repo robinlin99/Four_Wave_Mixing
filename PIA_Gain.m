@@ -578,32 +578,35 @@ end
         x = 1e3*L*x;
         gain = 10*log10( power_wave1);
         signal_gain = gain -  10*log10(power_wave1(1));
- %       hold on
+ %      hold on
         figure(1);
         plot(x, signal_gain);
-          xlabel 'Length (mm)'
-          ylabel 'Signal Gain (dB)'
-          grid on
-       fng = sprintf('%0.2f nm, pump wl = %0.2f nm, pump = %0.2f mW Signal gain.eps', wl, pl, pump);
-          saveas(gcf, fng);
+        xlabel 'Length (mm)'
+        ylabel 'Signal Gain (dB)'
+        grid on
+        grid minor
+        fng = sprintf('%0.2f nm, pump wl = %0.2f nm, pump = %0.2f mW Signal gain.eps', wl, pl, pump);
+        saveas(gcf, fng);
 %% Pump power
-%     hold on
-      figure(2)
-      pump_pwr = power_wave3*f0;
-      plot(x, pump_pwr);
-      xlabel 'Length (mm)'
-      ylabel 'Pump Power (W)'
-      grid on
-%      saveas(gcf, 'pump.eps');
+%       hold on
+        figure(2)
+        pump_pwr = power_wave3*f0;
+        plot(x, pump_pwr);
+        xlabel 'Length (mm)'
+        ylabel 'Pump Power (W)'
+        grid on
+        grid minor
+        saveas(gcf, 'pump.eps');
 %% signal power
- %     hold on
-      figure(3)
-      signal_pwr = power_wave1*f0;
-      plot(x, signal_pwr);
-      xlabel 'Length (mm)'
-      ylabel 'Signal Power (W)'
-      grid on
-%      saveas(gcf, 'signal_power.eps');
+ %      hold on
+        figure(3)
+        signal_pwr = power_wave1*f0;
+        plot(x, signal_pwr);
+        xlabel 'Length (mm)'
+        ylabel 'Signal Power (W)'
+        grid on
+        grid minor
+        saveas(gcf, 'signal_power.eps');
 
 % %% Total signal and idler gain
 %       gain = 10*log10(power_wave2./power_wave2(1) + power_wave1./power_wave1(1)-1);
@@ -614,18 +617,20 @@ end
 %       xlabel 'Length (mm)'
 %       ylabel 'PSA Gain (dB)'
 %       grid on
-% %      saveas(gcf, 'TotalGain.eps');
+%        grid minor
+%        saveas(gcf, 'TotalGain.eps');
 
 %%  Idler gain
-      gain = 10*log10( power_wave2);
-      idlergain = gain -  10*log10(power_wave2(1));
-%      hold on
-      figure(5)
-      plot(x, idlergain);
-      xlabel 'Length (mm)'
-      ylabel 'Idler Gain (dB)'
-      grid on
-%      saveas(gcf, 'IdlerGain.eps');
+        gain = 10*log10( power_wave2);
+        idlergain = gain -  10*log10(power_wave2(1));
+%     hold on
+        figure(5)
+        plot(x, idlergain);
+        xlabel 'Length (mm)'
+        ylabel 'Idler Gain (dB)'
+        grid on
+        grid minor
+        saveas(gcf, 'IdlerGain.eps');
  %%
       rst(:,1) = x;
       rst(:, 2) = signal_gain;
