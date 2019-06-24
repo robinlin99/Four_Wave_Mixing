@@ -585,7 +585,7 @@ end
         ylabel 'Signal Gain (dB)'
         grid on
         grid minor
-        fng = sprintf('%0.2f nm, pump wl = %0.2f nm, pump = %0.2f mW Signal gain.eps', wl, pl, pump);
+        fng = sprintf('%0.2f nm, pump wl = %0.2f nm, pump = %0.2f mW Signal Gain.eps', wl, pl, pump);
         saveas(gcf, fng);
 %% Pump power
 %       hold on
@@ -596,7 +596,7 @@ end
         ylabel 'Pump Power (W)'
         grid on
         grid minor
-        saveas(gcf, 'pump.eps');
+%       saveas(gcf, 'pump.eps');
 %% signal power
  %      hold on
         figure(3)
@@ -606,7 +606,7 @@ end
         ylabel 'Signal Power (W)'
         grid on
         grid minor
-        saveas(gcf, 'signal_power.eps');
+%       saveas(gcf, 'signal_power.eps');
 
 % %% Total signal and idler gain
 %       gain = 10*log10(power_wave2./power_wave2(1) + power_wave1./power_wave1(1)-1);
@@ -630,7 +630,8 @@ end
         ylabel 'Idler Gain (dB)'
         grid on
         grid minor
-        saveas(gcf, 'IdlerGain.eps');
+        fng = sprintf('%0.2f nm, pump wl = %0.2f nm, pump = %0.2f mW Idler Gain.eps', wl, pl, pump);
+        saveas(gcf, fng);
  %%
       rst(:,1) = x;
       rst(:, 2) = signal_gain;
