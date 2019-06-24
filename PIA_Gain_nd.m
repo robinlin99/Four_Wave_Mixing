@@ -17,7 +17,7 @@ PSA = 1;
 % A2 - Idler
 % A3 - Pump
 %% input data
-c=299792458   ;                 % velocity of light
+c=299792458;                 % velocity of light
 epsilon = 8.85e-12;
 % Symbolic library
 syms x w
