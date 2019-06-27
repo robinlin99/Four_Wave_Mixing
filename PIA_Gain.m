@@ -199,7 +199,7 @@ x = 0:0.01:1;
 
 % K1 and K2 -> Idler
 % K3 -> Pump
-deltak_d = -2*k_wave3_d + k_wave1_d + k_wave2_d;
+deltak_d = 2*k_wave3_d - k_wave1_d - k_wave2_d;
 deltak_o = deltak_d;
 
 lc_d = pi/deltak_d; % coherent length in disordered material
