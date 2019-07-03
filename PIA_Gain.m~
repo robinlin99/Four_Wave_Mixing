@@ -587,29 +587,25 @@ end
         % Check if gain at end of device is higher than the gain at the
         % front of the device
         sz = size(signal_gain);
-        half_index = round(sz(2)/2);
+        half_index = round(sz/2);
         first_seg = zeros(1,half_index);
-        second_seg = zeros(1,sz(2)-half_index);
-        min_gain = 0;
-        max_gain = 0;
-        signalgain = 0;
+        second_seg = zeros(1,sz-half_index);
         % sz = [1 length_of_array]
-        if signal_gain(1) < signal_gain(sz(2))
+        if signal_gain(1) < signal_gain(sz)
             first_seg = signal_gain(1:half_index);
-            second_seg = signal_gain(half_index+1:sz(2));
+            second_seg = signal_gain(half_index+1:sz);
             min_gain = min(first_seg);
             max_gain= max(second_seg);
             signalgain = max_gain - min_gain; 
         else
             signalgain = 0;
         end
-        fname = '/Users/robinlin/Desktop/Research/2019 Summer/Four_Wave_Mixing/Experiment_PIA_Gain'
         xlabel 'Length (mm)'
         ylabel 'Signal Gain (dB)'
         grid on
         grid minor
         fng = sprintf('%0.2f nm, pump wl = %0.2f nm, pump = %0.2f mW Signal Gain.eps', wl, pl, pump);
-        saveas(gcf,fullfile(fname,fng));
+        saveas(gcf, fng);
 %% Pump power
 %       hold on
         figure(2)
@@ -653,9 +649,8 @@ end
         ylabel 'Idler Gain (dB)'
         grid on
         grid minor
-        fname = '/Users/robinlin/Desktop/Research/2019 Summer/Four_Wave_Mixing/Experiment_PIA_Gain'
         fng = sprintf('%0.2f nm, pump wl = %0.2f nm, pump = %0.2f mW Idler Gain.eps', wl, pl, pump);
-        saveas(gcf, fullfile(fname,fng));
+        saveas(gcf, fng);
  %%   Commented out for now
       %rst(:,1) = x;
       %rst(:, 2) = signal_gain;

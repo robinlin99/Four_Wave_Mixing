@@ -1,0 +1,9 @@
+function [] = simulation_scan_4wave(min,max)
+% Initialize
+    sig_gain_arr = zeros(1,max-min+1)
+    index = 1;
+    sig_gain = 0;
+    for l = min:max
+        [sig_gain] = PIA_Gain(l,125,1310);
+    end
+end
