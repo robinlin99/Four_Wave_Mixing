@@ -16,6 +16,6 @@ function [] = simulation_scan_4wave(min,max,pump)
     grid on
     grid minor
     fname = '/Users/robinlin/Desktop/Research/2019 Summer/Four_Wave_Mixing/Experiment_Scanner'
-    fng = sprintf('%Pump = %0.2f mW Signal Gain.eps', pump);
+    fng = sprintf('Pump = %0.2f mW Signal Gain.eps', pump);
     saveas(gcf, fullfile(fname,fng));
 end
