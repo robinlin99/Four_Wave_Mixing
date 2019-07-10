@@ -1,4 +1,4 @@
-function [signalgain] = PIA_Gain_nd(wl, pump, pl)
+function [signalgain] = PIA_Gain(wl, pump, pl)
 
 %  2-D BPM code
 %  chi3 (quadratic) nonlinear material
