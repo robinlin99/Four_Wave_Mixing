@@ -4,8 +4,10 @@ function [] = simulation_scan_4wave(min,max,pump)
     index = 1;
     sig_gain = 0;
     wavelength = linspace(min,max,max-min+1);
+    x_vec = zeros(1,101);
+    s_gain = zeros(1,101);
     for l = min:max
-        [sig_gain] = PIA_Gain(l,pump,1310);
+        [x_vec,s_gain,sig_gain] = PIA_Gain(l,pump,1310);
         sig_gain_arr(index) = sig_gain;
         index = index + 1;
     end

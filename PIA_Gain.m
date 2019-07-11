@@ -1,4 +1,4 @@
-function [signalgain] = PIA_Gain(wl, pump, pl)
+function [x_vec,s_gain,signalgain] = PIA_Gain(wl, pump, pl)
 
 %  2-D BPM code
 %  chi3 (quadratic) nonlinear material
@@ -173,13 +173,13 @@ alpha_wave1_o = 200;
 
 %% n2
 
-n2_wave1_o = 1*100*1e-20;            %SH3
-n2_wave2_o = 1*100*1e-20;
-n2_wave3_o = 600*1e-20;
+n2_wave1_o = 100e-20;            %SH3
+n2_wave2_o = 100e-20;
+n2_wave3_o = 600e-20;
 %% alpha2 two photon absorption
-a2_wave1_o = 1.5*1e-12;                 % SH3
-a2_wave2_o = 1.5*1e-12;
-a2_wave3_o = 1.5*1e-12;
+a2_wave1_o = 1.5e-12;                 % SH3
+a2_wave2_o = 1.5e-12;
+a2_wave3_o = 1.5e-12;
 
 %% The pump and signal power amplitude
 gradual = 1;
@@ -576,8 +576,10 @@ eta_L(gradual)=100*power_wave2_L(gradual)*(1e-3)/(power_wave3_L(gradual)*power_w
 end
 %% signal gain
         x = 1e3*L*x;
+        x_vec = x;
         gain = 10*log10( power_wave1);
         signal_gain = gain -  10*log10(power_wave1(1));
+        s_gain = signal_gain;
  %      hold on
         figure(1);
         plot(x, signal_gain);
