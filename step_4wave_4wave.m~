@@ -42,23 +42,20 @@ function [e_wave1,e_wave2,e_wave3,e_wave4,es_wave1,es_wave2,es_wave3,es_wave4] =
 
 %%  quadratic nonlinear step
 %  two-variable fourth-order Runge-Kutta algorithm
-% m1 -> pump 
-% l1 -> pump 
+% m1 -> pump (degenerate case) -> e_wave1
 % k1 -> A2 -> e_wave2
 % j1 -> A3 -> e_wave3
-    %{
     % A3
     j1=c_chi3_wave1*(e_wave3.*e_wave3).*conj(e_wave2).*exp(-j*pphase) + c_n2a2_wave1*(conj(e_wave1).*e_wave1).*e_wave1;
     % A2
     k1=c_chi3_wave2*(e_wave3.*e_wave3).*conj(e_wave1).*exp(-j*pphase) + c_n2a2_wave2*(conj(e_wave2).*e_wave2).*e_wave2;
     % Pump
     m1=c_chi3_wave3*conj(e_wave3).*(e_wave2.*e_wave1).*exp(j*pphase) + c_n2a2_wave3*(conj(e_wave3).*e_wave3).*e_wave3;
-    % Pump
-    m1=c_chi3_wave3*conj(e_wave3).*(e_wave2.*e_wave1).*exp(j*pphase) + c_n2a2_wave3*(conj(e_wave3).*e_wave3).*e_wave3;
+    
 
     j2=c_chi3_wave1*(e_wave3 + deltaz*m1).*(e_wave3 + deltaz*m1).*conj(e_wave2 + deltaz*k1).*exp(-j*(pphase+0.5*deltak*deltaz))+ c_n2a2_wave1*(conj(e_wave1+0.5*deltaz*j1).*(e_wave1+0.5*deltaz*j1)).*(e_wave1+0.5*deltaz*j1);
     k2=c_chi3_wave2*(e_wave3 + deltaz*m1).*(e_wave3 + deltaz*m1).*conj(e_wave1 + deltaz*j1).*exp(-j*(pphase+0.5*deltak*deltaz))+ c_n2a2_wave2*(conj(e_wave2+0.5*deltaz*k1).*(e_wave2+0.5*deltaz*k1)).*(e_wave2+0.5*deltaz*k1);
-   m2=c_chi3_wave3*conj(e_wave3 + deltaz*m1).*(e_wave2 + deltaz*k1).*(e_wave1 + deltaz*j1).*exp(j*(pphase+0.5*deltak*deltaz))+ c_n2a2_wave3*(conj(e_wave3+0.5*deltaz*m1).*(e_wave3+0.5*deltaz*m1)).*(e_wave3+0.5*deltaz*m1);
+    m2=c_chi3_wave3*conj(e_wave3 + deltaz*m1).*(e_wave2 + deltaz*k1).*(e_wave1 + deltaz*j1).*exp(j*(pphase+0.5*deltak*deltaz))+ c_n2a2_wave3*(conj(e_wave3+0.5*deltaz*m1).*(e_wave3+0.5*deltaz*m1)).*(e_wave3+0.5*deltaz*m1);
 
 
     j3=c_chi3_wave1*(e_wave3 + deltaz*m2).*(e_wave3 + deltaz*m2).*conj(e_wave2 + deltaz*k2).*exp(-j*(pphase+0.5*deltak*deltaz))+ c_n2a2_wave1*(conj(e_wave1+0.5*deltaz*j2).*(e_wave1+0.5*deltaz*j2)).*(e_wave1+0.5*deltaz*j2);
@@ -74,7 +71,7 @@ function [e_wave1,e_wave2,e_wave3,e_wave4,es_wave1,es_wave2,es_wave3,es_wave4] =
     e_wave1=e_wave1+(j1+2*j2+2*j3+j4)*deltaz/6;
     e_wave2=e_wave2+(k1+2*k2+2*k3+k4)*deltaz/6;
     e_wave3=e_wave3+(m1+2*m2+2*m3+m4)*deltaz/6;
-    %}
+
 
 %% 2nd Linear Half Step   
 %  wave1: FFT and linear half step
@@ -103,4 +100,13 @@ function [e_wave1,e_wave2,e_wave3,e_wave4,es_wave1,es_wave2,es_wave3,es_wave4] =
     fact_wave4=-j.*gvd_wave4.*deltaz-j.*gvm_wave4.*deltaz-0.5*alpha_wave4.*deltaz;
     es_wave4=exp(fact_wave4*0.5).*es_wave4;
 % SH: IFFT
-    e_wave4=(1/deltat)*ifft(ifftshift(es_wave4));
+    e_wave4=(1/deltat)*ifft(ifftshift(es_wave34));
+
+
+
+
+
+
+
+
+
