@@ -412,7 +412,7 @@ length_m = changer(2:end) - changer(1:end-1);
 deltaz_m = z_m./5;
 % The complete Structure with the different properties for each material
 
-Structure = {length_m deltaz_m n_wave1_m n_wave2_m n_wave3_m n_wave4_m deltak_m chi2_m gvm_wave1_m gvm_wave2_m gvm_wave3_m gvm_wave4_m gvd_wave1_m gvd_wave2_m gvd_wave3_m gvd_wave4_m alpha_wave4_m alpha_wave3_m alpha_wave2_m alpha_wave1_m A_eff_m n2_wave3_m n2_wave2_m n2_wave1_m a2_wave1_m a2_wave2_m a2_wave3_m A_eff_3_m};
+Structure = {length_m deltaz_m n_wave1_m n_wave2_m n_wave3_m deltak_m chi2_m gvm_wave1_m gvm_wave2_m gvm_wave3_m gvd_wave1_m gvd_wave2_m gvd_wave3_m alpha_wave3_m alpha_wave2_m alpha_wave1_m A_eff_m n2_wave3_m n2_wave2_m n2_wave1_m a2_wave1_m a2_wave2_m a2_wave3_m A_eff_3_m};
 
 %%  Input Field
 amp_wave1=0;

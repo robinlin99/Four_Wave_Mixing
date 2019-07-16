@@ -1,4 +1,4 @@
-function [e_wave1,e_wave2,e_wave3,e_wave4,es_wave1,es_wave2,es_wave3,es_wave4] = step_4wave_4wave(e_wave1,e_wave2,e_wave3,e_wave4,deltat,deltaz,deltak,gvd_wave1,gvd_wave2,gvd_wave3,gvd_wave4,c_chi3_wave1,c_chi3_wave2,c_chi3_wave3,c_chi3_wave4,gvm_wave1,gvm_wave2,gvm_wave3,gvm_wave4,pphase,alpha_wave1,alpha_wave2,alpha_wave3,alpha_wave3,c_n2a2_wave1,c_n2a2_wave2,c_n2a2_wave3,c_n2a2_wave4)
+function [e_wave1,e_wave2,e_wave3,e_wave4,es_wave1,es_wave2,es_wave3,es_wave4] = step_4wave_4wave(e_wave1,e_wave2,e_wave3,e_wave4,deltat,deltaz,deltak,gvd_wave1,gvd_wave2,gvd_wave3,gvd_wave4,c_chi3_wave1,c_chi3_wave2,c_chi3_wave3,c_chi3_wave4,gvm_wave1,gvm_wave2,gvm_wave3,gvm_wave4,pphase,alpha_wave1,alpha_wave2,alpha_wave3,alpha_wave4,c_n2a2_wave1,c_n2a2_wave2,c_n2a2_wave3,c_n2a2_wave4)
 %% Wave assignment
 % 3 and 4 - pump
 % 1 - signal
