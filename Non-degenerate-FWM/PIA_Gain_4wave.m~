@@ -1,4 +1,4 @@
-function [x_vec,s_gain,signalgain] = PIA_Gain_4wave(wl, pump, pl1, pl2)
+function [x_vec,s_gain,signalgain] = PIA_Gain_4wave(wl, pump1, pump2, pl1, pl2)
 format long
 simm=1;
 t0=clock;
@@ -146,7 +146,7 @@ k_wave4_d=2*pi*n_wave4_d/lambda_wave4;
 vg_wave1_d = double(sig_vg(lambda_wave1));
 vg_wave2_d = double(idl_vg(lambda_wave2));
 vg_wave3_d = double(pmp_vg_1(lambda_wave3));
-vg_wave4_d = double(pmp_vg_1(lambda_wave4));
+vg_wave4_d = double(pmp_vg_2(lambda_wave4));
 
 %% Group Velocity Mismatch Parameters
 
@@ -210,8 +210,8 @@ T0_wave4=T0;
 f0 = 80e6; % repetition rate of pump laser
 
 
-amp_wave4_sqar=(1.09375*0.2*pump*0.75*10e2)*2^(gradual-1);  %peak power for pulsed pump electric field is square root
-amp_wave3_sqar=(1.09375*0.2*pump*0.75*10e2)*2^(gradual-1);  %peak power for pulsed pump electric field is square root
+amp_wave4_sqar=(1.09375*0.2*pump2*0.75*10e2)*2^(gradual-1);  %peak power for pulsed pump electric field is square root
+amp_wave3_sqar=(1.09375*0.2*pump1*0.75*10e2)*2^(gradual-1);  %peak power for pulsed pump electric field is square root
 amp_wave1_sqar=1e3*1e-12;
 amp_wave2_sqar=1e-20;
 x = 0:0.01:1;
@@ -412,12 +412,13 @@ length_m = changer(2:end) - changer(1:end-1);
 deltaz_m = z_m./5;
 % The complete Structure with the different properties for each material
 
-Structure = {length_m deltaz_m n_wave1_m n_wave2_m n_wave3_m deltak_m chi2_m gvm_wave1_m gvm_wave2_m gvm_wave3_m gvd_wave1_m gvd_wave2_m gvd_wave3_m alpha_wave3_m alpha_wave2_m alpha_wave1_m A_eff_m n2_wave3_m n2_wave2_m n2_wave1_m a2_wave1_m a2_wave2_m a2_wave3_m A_eff_3_m};
+Structure = {length_m deltaz_m n_wave1_m n_wave2_m n_wave3_m n_wave4_m deltak_m chi2_m gvm_wave1_m gvm_wave2_m gvm_wave3_m gvm_wave4_m gvd_wave1_m gvd_wave2_m gvd_wave3_m gvd_wave4_m alpha_wave4_m alpha_wave3_m alpha_wave2_m alpha_wave1_m A_eff_m n2_wave4_m n2_wave3_m n2_wave2_m n2_wave1_m a2_wave1_m a2_wave2_m a2_wave3_m a2_wave4_m A_eff_3_m};
 
 %%  Input Field
 amp_wave1=0;
 amp_wave2=0;
 amp_wave3=0;
+amp_wave4=0;
 % amp_wave1_sqar=0;
 % amp_wave2_sqar=0;
 % amp_wave3_sqar=0;
@@ -427,6 +428,7 @@ gradual_max=1;
 power_wave1_L=[];
 power_wave2_L=[];
 power_wave3_L=[];
+power_wave4_L=[];
 eta_L=[];
 
 for gradual=1:1:gradual_max
@@ -434,6 +436,7 @@ for gradual=1:1:gradual_max
 amp_wave1=sqrt(amp_wave1_sqar);   % input 1st wave amplitude
 amp_wave2=sqrt(amp_wave2_sqar);   % input 2nd wave amplitude
 amp_wave3=sqrt(amp_wave3_sqar);   % input 3rd wave amplitude
+amp_wave4=sqrt(amp_wave4_sqar);   % input 3rd wave amplitude
 
 t = -tmax:deltat:tmax-deltat;     % time interval
 
@@ -442,6 +445,7 @@ t = -tmax:deltat:tmax-deltat;     % time interval
 e_wave1=amp_wave1*exp(-(t/(sqrt(2)*T0_wave1)).^2);   % input 1st wave Gaussian beam
 e_wave2=amp_wave2*exp(-(t/(sqrt(2)*T0_wave2)).^2);   % input 2nd wave Gaussian beam
 e_wave3=amp_wave3*sech(-(t/(sqrt(1)*T0_wave3)).^1);   % ultrafast pulse in sech form
+e_wave4=amp_wave4*sech(-(t/(sqrt(1)*T0_wave4)).^1);   % ultrafast pulse in sech form
 %e_wave3=amp_wave3*exp(-(t/(sqrt(2)*T0_wave3)).^2);   % input 3rd wave Gaussian beam
 
 %% phase and z direction starting point and initial values
@@ -454,20 +458,25 @@ distance=[];
 i_wave1=[];           % 1st wave intensity
 i_wave2=[];           % 2nd wave intensity
 i_wave3=[];           % 3rd wave intensity
+i_wave4=[];           % 3rd wave intensity
 inorm_wave1=[];       % 1st wave normalized intensity
 inorm_wave2=[];       % 2nd wave normalized intensity
 inorm_wave3=[];       % 3rd wave normalized intensity
+inorm_wave4=[];       % 3rd wave normalized intensity
 e_wave1_field=[];     % 1st wave field
 e_wave2_field=[];     % 2nd wave field
 e_wave3_field=[];     % 3rd wave field
+e_wave4_field=[];     % 3rd wave field
 
 i_fft_wave1=[];       % 1st wave power spectrum
 i_fft_wave2=[];       % 2nd wave power spectrum
 i_fft_wave3=[];       % 3rd wave power spectrum
+i_fft_wave4=[];       % 3rd wave power spectrum
 
 i_fftnorm_wave1=[];   % 1st wave normalized power spectrum
 i_fftnorm_wave2=[];   % 2nd wave normalized power spectrum
 i_fftnorm_wave3=[];   % 3rd wave normalized power spectrum
+i_fftnorm_wave4=[];   % 3rd wave normalized power spectrum
 
 distance(1:numplots+1)=[0];
 phaseplot= [];
@@ -508,6 +517,19 @@ phaseplot= [];
       i_fft_wave3(1:length(t),1)=[abs(deltat*fftshift(fft(e_wave3'))).^2 ];
       i_fftnorm_wave3(1:length(t),1:numplots+1)=[0];
       i_fftnorm_wave3(1:length(t),1)=[abs(fftshift(fft(e_wave3'))).^2/max(abs(fftshift(fft(e_wave3'))).^2) ];
+      
+      
+      power_wave4(1:numplots+1)=[deltat*sum((abs(e_wave4).^2))] ;
+      i_wave4(1:length(t),1:numplots+1)=[0];
+      i_wave4(1:length(t),1)=[abs(e_wave4').^2];
+      inorm_wave4(1:length(t),1:numplots+1)=[0];
+      inorm_wave4(1:length(t),1)=[(abs(e_wave4').^2)/max(abs(e_wave4').^2)];
+      e_wave4_field(1:length(t),1:numplots+1)=[0];
+      e_wave4_field(1:length(t),1)=[e_wave4'];
+      i_fft_wave4(1:length(t),1:numplots+1)=[0];
+      i_fft_wave4(1:length(t),1)=[abs(deltat*fftshift(fft(e_wave4'))).^2 ];
+      i_fftnorm_wave4(1:length(t),1:numplots+1)=[0];
+      i_fftnorm_wave4(1:length(t),1)=[abs(fftshift(fft(e_wave4'))).^2/max(abs(fftshift(fft(e_wave4'))).^2) ];
 %% MAIN PROGRAM
 z_count = 0;
 Material_step = 2; %material number indicator
@@ -518,25 +540,31 @@ deltaz = Structure{2}(Material_step - 1);
 n_wave1 = Structure{3}(Material_step - 1);
 n_wave2 = Structure{4}(Material_step - 1);
 n_wave3 = Structure{5}(Material_step - 1);
-deltak = Structure{6}(Material_step - 1);
-chi2 = Structure{7}(Material_step - 1);
-gvm_wave1 = Structure{8}((Material_step - 1),:);
-gvm_wave2 = Structure{9}((Material_step - 1),:);
-gvm_wave3 = Structure{10}((Material_step - 1),:);
-gvd_wave1 = Structure{11}((Material_step - 1),:);
-gvd_wave2 = Structure{12}((Material_step - 1),:);
-gvd_wave3 = Structure{13}((Material_step - 1),:);
-alpha_wave3 = Structure{14}(Material_step - 1);
-alpha_wave2 = Structure{15}(Material_step - 1);
-alpha_wave1 = Structure{16}(Material_step - 1);
-A_eff_2nd = Structure{17}(Material_step - 1);
-n2_wave3 = Structure{18}(Material_step - 1);
-n2_wave2 = Structure{19}(Material_step - 1);
-n2_wave1 = Structure{20}(Material_step - 1);
-a2_wave1 = Structure{21}(Material_step - 1);
-a2_wave2 = Structure{22}(Material_step - 1);
-a2_wave3 = Structure{23}(Material_step - 1);
-A_eff_3rd = Structure{24}(Material_step - 1);
+n_wave4 = Structure{6}(Material_step - 1);
+deltak = Structure{7}(Material_step - 1);
+chi2 = Structure{8}(Material_step - 1);
+gvm_wave1 = Structure{9}((Material_step - 1),:);
+gvm_wave2 = Structure{10}((Material_step - 1),:);
+gvm_wave3 = Structure{11}((Material_step - 1),:);
+gvm_wave4 = Structure{12}((Material_step - 1),:);
+gvd_wave1 = Structure{13}((Material_step - 1),:);
+gvd_wave2 = Structure{14}((Material_step - 1),:);
+gvd_wave3 = Structure{15}((Material_step - 1),:);
+gvd_wave4 = Structure{16}((Material_step - 1),:);
+alpha_wave4 = Structure{17}(Material_step - 1);
+alpha_wave3 = Structure{18}(Material_step - 1);
+alpha_wave2 = Structure{19}(Material_step - 1);
+alpha_wave1 = Structure{20}(Material_step - 1);
+A_eff_2nd = Structure{21}(Material_step - 1);
+n2_wave4 = Structure{22}(Material_step - 1);
+n2_wave3 = Structure{23}(Material_step - 1);
+n2_wave2 = Structure{24}(Material_step - 1);
+n2_wave1 = Structure{25}(Material_step - 1);
+a2_wave1 = Structure{26}(Material_step - 1);
+a2_wave2 = Structure{27}(Material_step - 1);
+a2_wave3 = Structure{28}(Material_step - 1);
+a2_wave4 = Structure{29}(Material_step - 1);
+A_eff_3rd = Structure{30}(Material_step - 1);
 
 % coupling coefficients
 %---------------------------------------------------------------------------------------------------
@@ -549,20 +577,23 @@ A_eff_3rd = Structure{24}(Material_step - 1);
 c_chi3_wave1 = 2*j*(n2_wave1*2*pi)/(A_eff_3rd*lambda_wave1);
 c_chi3_wave2 = 2*j*(n2_wave2*2*pi)/(A_eff_3rd*lambda_wave2);
 c_chi3_wave3 = 2*j*(n2_wave3*2*pi)/(A_eff_3rd*lambda_wave3);
+c_chi3_wave4 = 2*j*(n2_wave4*2*pi)/(A_eff_3rd*lambda_wave4);
 
 c_n2a2_wave1 = (j*2*pi*n2_wave1/lambda_wave1 - a2_wave1/2)/(A_eff_3rd);
 c_n2a2_wave2 = (j*2*pi*n2_wave2/lambda_wave2 - a2_wave2/2)/(A_eff_3rd);
 c_n2a2_wave3 = (j*2*pi*n2_wave3/lambda_wave3 - a2_wave3/2)/(A_eff_3rd);
+c_n2a2_wave4 = (j*2*pi*n2_wave4/lambda_wave4 - a2_wave4/2)/(A_eff_3rd);
 
 
 % transmission coefficients
 e_wave1 = e_wave1*Tr_wave1(loop_step);
 e_wave2 = e_wave2*Tr_wave2(loop_step);
 e_wave3 = e_wave3*Tr_wave3(loop_step);
+e_wave4 = e_wave4*Tr_wave4(loop_step);
 
 
 % function that calculates the values of the pulses after each step
-[e_wave1,e_wave2,e_wave3,es_wave1,es_wave2,es_wave3] = step_4wave(e_wave1,e_wave2,e_wave3,deltat,deltaz,deltak,gvd_wave1,gvd_wave2,gvd_wave3,c_chi3_wave1,c_chi3_wave2,c_chi3_wave3,gvm_wave1,gvm_wave2,gvm_wave3,pphase,alpha_wave1,alpha_wave2,alpha_wave3,c_n2a2_wave1,c_n2a2_wave2,c_n2a2_wave3);
+[e_wave1,e_wave2,e_wave3,e_wave4,es_wave1,es_wave2,es_wave3,es_wave4] = step_4wave_4wave(e_wave1,e_wave2,e_wave3,e_wave4,deltat,deltaz,deltak,gvd_wave1,gvd_wave2,gvd_wave3,gvd_wave4,c_chi3_wave1,c_chi3_wave2,c_chi3_wave3,c_chi3_wave4,gvm_wave1,gvm_wave2,gvm_wave3,gvm_wave4,pphase,alpha_wave1,alpha_wave2,alpha_wave3,alpha_wave4,c_n2a2_wave1,c_n2a2_wave2,c_n2a2_wave3,c_n2a2_wave4)
 
 pphase = deltak*deltaz + pphase; %% increment in the phase angle
 
@@ -586,7 +617,6 @@ zeta = deltaz + zeta; %increment in z
       i_fft_wave1(1:length(t),z_count+1)=[abs(es_wave1').^2];
       i_fftnorm_wave1(1:length(t),z_count+1)=[abs(es_wave1').^2/max(abs(es_wave1').^2)];
 
-
       %
       power_wave2(z_count+1)=[deltat*sum((abs(e_wave2).^2))] ;
       i_wave2(1:length(t),z_count+1)=[abs(e_wave2').^2];
@@ -595,7 +625,6 @@ zeta = deltaz + zeta; %increment in z
       i_fft_wave2(1:length(t),z_count+1)=[abs(es_wave2').^2];
       i_fftnorm_wave2(1:length(t),z_count+1)=[abs(es_wave2').^2/max(abs(es_wave2').^2)];
 
-
       %
       power_wave3(z_count+1)=[deltat*sum((abs(e_wave3).^2))] ;
       i_wave3(1:length(t),z_count+1)=[abs(e_wave3').^2];
@@ -603,6 +632,14 @@ zeta = deltaz + zeta; %increment in z
       e_wave3_field(1:length(t),z_count+1)=[e_wave3'];
       i_fft_wave3(1:length(t),z_count+1)=[abs(es_wave3').^2];
       i_fftnorm_wave3(1:length(t),z_count+1)=[abs(es_wave3').^2/max(abs(es_wave3').^2)];
+      
+      
+      power_wave4(z_count+1)=[deltat*sum((abs(e_wave4).^2))] ;
+      i_wave4(1:length(t),z_count+1)=[abs(e_wave4').^2];
+      inorm_wave4(1:length(t),z_count+1)=[(abs(e_wave4').^2)/max(abs(e_wave4').^2)];
+      e_wave4_field(1:length(t),z_count+1)=[e_wave4'];
+      i_fft_wave4(1:length(t),z_count+1)=[abs(es_wave4').^2];
+      i_fftnorm_wave4(1:length(t),z_count+1)=[abs(es_wave4').^2/max(abs(es_wave4').^2)];
 
       %
       distance(z_count+1)=[zeta];
@@ -611,13 +648,14 @@ end;
 power_wave1_L(gradual)=(1e+3)*power_wave1(1)/(2*tmax);
 power_wave2_L(gradual)=(1e+9)*power_wave2(end)/(2*tmax);
 power_wave3_L(gradual)=(1e+3)*power_wave3(1)/(2*tmax);
+power_wave4_L(gradual)=(1e+3)*power_wave4(1)/(2*tmax);
 
-eta_L(gradual)=100*power_wave2_L(gradual)*(1e-3)/(power_wave3_L(gradual)*power_wave1_L(gradual));
+eta_L(gradual)=100*power_wave2_L(gradual)*(1e-3)/(power_wave3_L(gradual)*power_wave1_L(gradual)*power_wave4_L(gradual));
 end
 %% signal gain
         x = 1e3*L*x;
         x_vec = x;
-        gain = 10*log10( power_wave1);
+        gain = 10*log10(power_wave1);
         signal_gain = gain -  10*log10(power_wave1(1));
         s_gain = signal_gain;
  %      hold on
@@ -645,26 +683,37 @@ end
         else
             signalgain = 0;
         end
-        fname = '/Users/robinlin/Desktop/Research/2019 Summer/Four_Wave_Mixing/Experiment_PIA_Gain'
+        fname = '/Users/robinlin/Desktop/Research/2019 Summer/Four_Wave_Mixing/Experiment_PIA_Gain_Nondegenerate'
         xlabel 'Length (mm)'
         ylabel 'Signal Gain (dB)'
         grid on
         grid minor
-        fng = sprintf('%0.2f nm, pump wl = %0.2f nm, pump = %0.2f mW Signal Gain.eps', wl, pl, pump);
+        fng = sprintf('%0.2f nm, pump1 wl = %0.2f nm, pump2 wl = %0.2f nm, pump1 power = %0.2f mW, pump2 power = %0.2f mW Signal Gain.eps', wl, pl1, pl2, pump1, pump2);
         saveas(gcf,fullfile(fname,fng));
-%% Pump power
+%% Pump power 1
 %       hold on
         figure(2)
-        pump_pwr = power_wave3*f0;
-        plot(x, pump_pwr);
+        pump_pwr1 = power_wave3*f0;
+        plot(x, pump_pwr1);
         xlabel 'Length (mm)'
-        ylabel 'Pump Power (W)'
+        ylabel 'Pump Power 1 (W)'
         grid on
         grid minor
 %       saveas(gcf, 'pump.eps');
+
+
+%% Pump power 2
+%       hold on
+        figure(3)
+        pump_pwr2 = power_wave4*f0;
+        plot(x, pump_pwr2);
+        xlabel 'Length (mm)'
+        ylabel 'Pump Power 2 (W)'
+        grid on
+        grid minor
 %% signal power
  %      hold on
-        figure(3)
+        figure(4)
         signal_pwr = power_wave1*f0;
         plot(x, signal_pwr);
         xlabel 'Length (mm)'
@@ -686,7 +735,7 @@ end
 %        saveas(gcf, 'TotalGain.eps');
 
 %%  Idler gain
-        gain = 10*log10( power_wave2);
+        gain = 10*log10(power_wave2);
         idlergain = gain -  10*log10(power_wave2(1));
 %     hold on
         figure(5)
@@ -695,8 +744,8 @@ end
         ylabel 'Idler Gain (dB)'
         grid on
         grid minor
-        fname = '/Users/robinlin/Desktop/Research/2019 Summer/Four_Wave_Mixing/Experiment_PIA_Gain'
-        fng = sprintf('%0.2f nm, pump wl = %0.2f nm, pump = %0.2f mW Idler Gain.eps', wl, pl, pump);
+        fname = '/Users/robinlin/Desktop/Research/2019 Summer/Four_Wave_Mixing/Experiment_PIA_Gain_Nondegenerate';
+        fng = sprintf('%0.2f nm, pump1 wl = %0.2f nm, pump2 wl = %0.2f nm, pump1 power = %0.2f mW, pump2 power = %0.2f mW Idler Gain.eps', wl, pl1, pl2, pump1, pump2);
         saveas(gcf, fullfile(fname,fng));
  %%   Commented out for now
       %rst(:,1) = x;
