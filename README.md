@@ -1,6 +1,6 @@
 # Four_Wave_Mixing
 
-Numerical solver for Chi-3 degenerate four-wave mixing process. 
+**Four_Wave_Mixing** is a numerical solver for Chi-3 degenerate and nondegenerate four-wave mixing (FWM) process. Currently, the nondegenerate FWM solver is still being developed. 
 
 The directory structure is as follows:
 
@@ -44,5 +44,6 @@ Four_Wave_Mixing
                       |
                       |--------- step_4wave_4wave.m
 ```
-
-
+Two main files will be used in the simulation:
+1. **PIA_Gain.m** is the main program. The function takes inputs **wl**, **pump**, and **pl**. These correspond to signal wavelength, pump power, and pump wavelength, respectively. As output, idler gain and power, the signal gain and power, and pump power, as functions of waveguide propagation length, will be generated. 
+2. **step_4wave.m**
