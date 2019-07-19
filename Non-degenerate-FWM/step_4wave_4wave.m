@@ -91,7 +91,7 @@ function [e_wave1,e_wave2,e_wave3,e_wave4,es_wave1,es_wave2,es_wave3,es_wave4] =
     % Idler
     k2 = c_chi3_wave2*(e_wave4+deltaz*l1).*(e_wave3+deltaz*m1).*conj(e_wave1+deltaz*j1).*exp(-j*(pphase+0.5*deltak*deltaz)) + c_n2a2_wave2*conj(e_wave2+deltaz*k1).*(e_wave2+deltaz*k1).*(e_wave2+deltaz*k1);
     % Signal
-    j2 = c_chi3_wave1*(e_wave4+deltaz*l1).*(e_wave3+deltaz*m1).*conj(e_wave2+deltaz*k1).*exp(-j*(pphase+0.5*deltak*deltaz)) + c_n2a2_wave1*conj(e_wave1_deltaz*j1).*(e_wave1_deltaz*j1).*(e_wave1_deltaz*j1);
+    j2 = c_chi3_wave1*(e_wave4+deltaz*l1).*(e_wave3+deltaz*m1).*conj(e_wave2+deltaz*k1).*exp(-j*(pphase+0.5*deltak*deltaz)) + c_n2a2_wave1*conj(e_wave1+deltaz*j1).*(e_wave1+deltaz*j1).*(e_wave1+deltaz*j1);
     
     % Pump 1
     m3 = c_chi3_wave3*conj(e_wave4+deltaz*l2).*(e_wave2+deltaz*k2).*(e_wave1+deltaz*j2).*exp(-j*(pphase+0.5*deltak*deltaz)) + c_n2a2_wave3*conj(e_wave3+deltaz*m2).*(e_wave3+deltaz*m2).*(e_wave3+deltaz*m2);
@@ -100,7 +100,7 @@ function [e_wave1,e_wave2,e_wave3,e_wave4,es_wave1,es_wave2,es_wave3,es_wave4] =
     % Idler
     k3 = c_chi3_wave2*(e_wave4+deltaz*l2).*(e_wave3+deltaz*m2).*conj(e_wave1+deltaz*j2).*exp(-j*(pphase+0.5*deltak*deltaz)) + c_n2a2_wave2*conj(e_wave2+deltaz*k2).*(e_wave2+deltaz*k2).*(e_wave2+deltaz*k2);
     % Signal
-    j3 = c_chi3_wave1*(e_wave4+deltaz*l2).*(e_wave3+deltaz*m2).*conj(e_wave2+deltaz*k2).*exp(-j*(pphase+0.5*deltak*deltaz)) + c_n2a2_wave1*conj(e_wave1_deltaz*j2).*(e_wave1_deltaz*j2).*(e_wave1_deltaz*j2);
+    j3 = c_chi3_wave1*(e_wave4+deltaz*l2).*(e_wave3+deltaz*m2).*conj(e_wave2+deltaz*k2).*exp(-j*(pphase+0.5*deltak*deltaz)) + c_n2a2_wave1*conj(e_wave1+deltaz*j2).*(e_wave1+deltaz*j2).*(e_wave1+deltaz*j2);
     
     % Pump 1
     m4 = c_chi3_wave3*conj(e_wave4+deltaz*l3).*(e_wave2+deltaz*k3).*(e_wave1+deltaz*j3).*exp(-j*(pphase+deltak*deltaz)) + c_n2a2_wave3*conj(e_wave3+deltaz*m3).*(e_wave3+deltaz*m3).*(e_wave3+deltaz*m3);
@@ -109,7 +109,7 @@ function [e_wave1,e_wave2,e_wave3,e_wave4,es_wave1,es_wave2,es_wave3,es_wave4] =
     % Idler
     k4 = c_chi3_wave2*(e_wave4+deltaz*l3).*(e_wave3+deltaz*m3).*conj(e_wave1+deltaz*j3).*exp(-j*(pphase+deltak*deltaz)) + c_n2a2_wave2*conj(e_wave2+deltaz*k3).*(e_wave2+deltaz*k3).*(e_wave2+deltaz*k3);
     % Signal
-    j4 = c_chi3_wave1*(e_wave4+deltaz*l3).*(e_wave3+deltaz*m3).*conj(e_wave2+deltaz*k3).*exp(-j*(pphase+deltak*deltaz)) + c_n2a2_wave1*conj(e_wave1_deltaz*j3).*(e_wave1_deltaz*j3).*(e_wave1_deltaz*j3);
+    j4 = c_chi3_wave1*(e_wave4+deltaz*l3).*(e_wave3+deltaz*m3).*conj(e_wave2+deltaz*k3).*exp(-j*(pphase+deltak*deltaz)) + c_n2a2_wave1*conj(e_wave1+deltaz*j3).*(e_wave1+deltaz*j3).*(e_wave1+deltaz*j3);
     
     e_wave1=e_wave1+(j1+2*j2+2*j3+j4)*deltaz/6;
     e_wave2=e_wave2+(k1+2*k2+2*k3+k4)*deltaz/6;

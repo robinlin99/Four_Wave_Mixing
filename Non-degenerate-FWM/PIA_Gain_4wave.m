@@ -155,7 +155,7 @@ tao = 1; % pulse duration
 gamma_wave1_d = 1/vg_wave1_d;
 gamma_wave2_d = 1/vg_wave2_d;
 gamma_wave3_d = 1/vg_wave3_d;
-gamma_wave3_d = 1/vg_wave4_d;
+gamma_wave4_d = 1/vg_wave4_d;
 
 
 N_wave1_d = 1*(-gamma_wave3_d+gamma_wave1_d)/tao;
@@ -220,7 +220,7 @@ x = 0:0.01:1;
 
 % K1 and K2 -> Idler
 % K3 -> Pump
-deltak_d = k_wave3_d + k_wave4 - k_wave1_d - k_wave2_d;
+deltak_d = k_wave3_d + k_wave4_d - k_wave1_d - k_wave2_d;
 deltak_o = deltak_d;
 
 lc_d = pi/deltak_d; % coherent length in disordered material
@@ -681,9 +681,9 @@ end
         else
             signalgain = 0;
         end
-        fname = '/Users/robinlin/Desktop/Research/2019 Summer/Four_Wave_Mixing/Experiment_PIA_Gain_Nondegenerate'
-        xlabel 'Length (mm)'
-        ylabel 'Signal Gain (dB)'
+        fname = '/Users/robinlin/Desktop/Research/2019 Summer/Four_Wave_Mixing/Experiment_PIA_Gain_Nondegenerate';
+        xlabel 'Length (mm)';
+        ylabel 'Signal Gain (dB)';
         grid on
         grid minor
         fng = sprintf('%0.2f nm, pump1 wl = %0.2f nm, pump2 wl = %0.2f nm, pump1 power = %0.2f mW, pump2 power = %0.2f mW Signal Gain.eps', wl, pl1, pl2, pump1, pump2);
@@ -712,10 +712,10 @@ end
         figure(4)
         signal_pwr = power_wave1*f0;
         plot(x, signal_pwr);
-        xlabel 'Length (mm)'
-        ylabel 'Signal Power (W)'
-        grid on
-        grid minor
+        xlabel 'Length (mm)';
+        ylabel 'Signal Power (W)';
+        grid on;
+        grid minor;
         
 % %%    Total signal and idler gain
 %       gain = 10*log10(power_wave2./power_wave2(1) + power_wave1./power_wave1(1)-1);
@@ -734,10 +734,10 @@ end
 %     hold on
         figure(5)
         plot(x, idlergain);
-        xlabel 'Length (mm)'
-        ylabel 'Idler Gain (dB)'
-        grid on
-        grid minor
+        xlabel 'Length (mm)';
+        ylabel 'Idler Gain (dB)';
+        grid on;
+        grid minor;
         fname = '/Users/robinlin/Desktop/Research/2019 Summer/Four_Wave_Mixing/Experiment_PIA_Gain_Nondegenerate';
         fng = sprintf('%0.2f nm, pump1 wl = %0.2f nm, pump2 wl = %0.2f nm, pump1 power = %0.2f mW, pump2 power = %0.2f mW Idler Gain.eps', wl, pl1, pl2, pump1, pump2);
         saveas(gcf, fullfile(fname,fng));
