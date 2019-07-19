@@ -4,6 +4,7 @@ Numerical solver for Chi-3 degenerate four-wave mixing process.
 
 The directory structure is as follows:
 
+```
 Four_Wave_Mixing 
     |
     |----------- Degenerate_FWM
@@ -42,6 +43,6 @@ Four_Wave_Mixing
                       |--------- PIA_Gain_4wave.m
                       |
                       |--------- step_4wave_4wave.m
-
+```
 
 
