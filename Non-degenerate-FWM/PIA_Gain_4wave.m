@@ -584,7 +584,6 @@ c_n2a2_wave2 = (j*2*pi*n2_wave2/lambda_wave2 - a2_wave2/2)/(A_eff_3rd);
 c_n2a2_wave3 = (j*2*pi*n2_wave3/lambda_wave3 - a2_wave3/2)/(A_eff_3rd);
 c_n2a2_wave4 = (j*2*pi*n2_wave4/lambda_wave4 - a2_wave4/2)/(A_eff_3rd);
 
-
 % transmission coefficients
 e_wave1 = e_wave1*Tr_wave1(loop_step);
 e_wave2 = e_wave2*Tr_wave2(loop_step);
