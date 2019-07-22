@@ -1,4 +1,4 @@
-function [x_vec,s_gain,signalgain] = PIA_Gain_4wave(wl, pump1, pump2, pl1, pl2)
+function [] = PIA_Gain_4wave(wl, pump1, pump2, pl1, pl2)
 format long
 simm=1;
 t0=clock;
@@ -167,7 +167,7 @@ N_wave2_o = N_wave2_d;
 N_wave3_d = 1*(-gamma_wave3_d+gamma_wave3_d)/tao;
 N_wave3_o = N_wave3_d;
 
-N_wave4_d = 1*(-gamma_wave4_d+gamma_wave4_d)/tao;
+N_wave4_d = 1*(-gamma_wave3_d+gamma_wave4_d)/tao;
 N_wave4_o = N_wave4_d;
 
 %% Group Velocity Dispersion Parameters
@@ -566,14 +566,7 @@ a2_wave3 = Structure{28}(Material_step - 1);
 a2_wave4 = Structure{29}(Material_step - 1);
 A_eff_3rd = Structure{30}(Material_step - 1);
 
-% coupling coefficients
-%---------------------------------------------------------------------------------------------------
-% CHI2
-%c_chi2_wave1=-j*chi2*sqrt(8*pi^2/(n_wave1*n_wave2*n_wave3*c*epsilon*lambda_wave1^2*A_eff_2nd));
-%c_chi2_wave2=-j*chi2*sqrt(8*pi^2/(n_wave1*n_wave2*n_wave3*c*epsilon*lambda_wave2^2*A_eff_2nd));
-%c_chi2_wave3=-j*chi2*sqrt(8*pi^2/(n_wave1*n_wave2*n_wave3*c*epsilon*lambda_wave3^2*A_eff_2nd));
 
-%CHI3
 c_chi3_wave1 = 2*j*(n2_wave1*2*pi)/(A_eff_3rd*lambda_wave1);
 c_chi3_wave2 = 2*j*(n2_wave2*2*pi)/(A_eff_3rd*lambda_wave2);
 c_chi3_wave3 = 2*j*(n2_wave3*2*pi)/(A_eff_3rd*lambda_wave3);
@@ -592,7 +585,7 @@ e_wave4 = e_wave4*Tr_wave4(loop_step);
 
 
 % function that calculates the values of the pulses after each step
-[e_wave1,e_wave2,e_wave3,e_wave4,es_wave1,es_wave2,es_wave3,es_wave4] = step_4wave_4wave(e_wave1,e_wave2,e_wave3,e_wave4,deltat,deltaz,deltak,gvd_wave1,gvd_wave2,gvd_wave3,gvd_wave4,c_chi3_wave1,c_chi3_wave2,c_chi3_wave3,c_chi3_wave4,gvm_wave1,gvm_wave2,gvm_wave3,gvm_wave4,pphase,alpha_wave1,alpha_wave2,alpha_wave3,alpha_wave4,c_n2a2_wave1,c_n2a2_wave2,c_n2a2_wave3,c_n2a2_wave4)
+[e_wave1,e_wave2,e_wave3,e_wave4,es_wave1,es_wave2,es_wave3,es_wave4] = step_4wave_4wave(e_wave1,e_wave2,e_wave3,e_wave4,deltat,deltaz,deltak,gvd_wave1,gvd_wave2,gvd_wave3,gvd_wave4,c_chi3_wave1,c_chi3_wave2,c_chi3_wave3,c_chi3_wave4,gvm_wave1,gvm_wave2,gvm_wave3,gvm_wave4,pphase,alpha_wave1,alpha_wave2,alpha_wave3,alpha_wave4,c_n2a2_wave1,c_n2a2_wave2,c_n2a2_wave3,c_n2a2_wave4);
 
 pphase = deltak*deltaz + pphase; %% increment in the phase angle
 
@@ -642,6 +635,7 @@ zeta = deltaz + zeta; %increment in z
       distance(z_count+1)=[zeta];
    end
 end;
+
 power_wave1_L(gradual)=(1e+3)*power_wave1(1)/(2*tmax);
 power_wave2_L(gradual)=(1e+9)*power_wave2(end)/(2*tmax);
 power_wave3_L(gradual)=(1e+3)*power_wave3(1)/(2*tmax);
@@ -656,33 +650,16 @@ end
         signal_gain = gain -  10*log10(power_wave1(1));
         s_gain = signal_gain;
  %      hold on
-        figure(1);
-        plot(x, signal_gain);
+        figure(1)
+        plot(x, signal_gain)
         % Compute the gain by subtracting minimum from maximum
         % Minimum on interval [0mm,0.5mm] 
         % Maximum on interval [0.5,1mm]
         % Check if gain at end of device is higher than the gain at the
         % front of the device
-        sz = size(signal_gain);
-        half_index = round(sz(2)/2);
-        first_seg = zeros(1,half_index);
-        second_seg = zeros(1,sz(2)-half_index);
-        min_gain = 0;
-        max_gain = 0;
-        signalgain = 0;
-        % sz = [1 length_of_array]
-        if signal_gain(1) < signal_gain(sz(2))
-            first_seg = signal_gain(1:half_index);
-            second_seg = signal_gain(half_index+1:sz(2));
-            min_gain = min(first_seg);
-            max_gain= max(second_seg);
-            signalgain = max_gain - min_gain; 
-        else
-            signalgain = 0;
-        end
         fname = '/Users/robinlin/Desktop/Research/2019 Summer/Four_Wave_Mixing/Experiment_PIA_Gain_Nondegenerate';
-        xlabel 'Length (mm)';
-        ylabel 'Signal Gain (dB)';
+        xlabel 'Length (mm)'
+        ylabel 'Signal Gain (dB)'
         grid on
         grid minor
         fng = sprintf('%0.2f nm, pump1 wl = %0.2f nm, pump2 wl = %0.2f nm, pump1 power = %0.2f mW, pump2 power = %0.2f mW Signal Gain.eps', wl, pl1, pl2, pump1, pump2);
@@ -691,7 +668,7 @@ end
 %       hold on
         figure(2)
         pump_pwr1 = power_wave3*f0;
-        plot(x, pump_pwr1);
+        plot(x, pump_pwr1)
         xlabel 'Length (mm)'
         ylabel 'Pump Power 1 (W)'
         grid on
@@ -701,7 +678,7 @@ end
 %       hold on
         figure(3)
         pump_pwr2 = power_wave4*f0;
-        plot(x, pump_pwr2);
+        plot(x, pump_pwr2)
         xlabel 'Length (mm)'
         ylabel 'Pump Power 2 (W)'
         grid on
@@ -710,9 +687,9 @@ end
  %      hold on
         figure(4)
         signal_pwr = power_wave1*f0;
-        plot(x, signal_pwr);
-        xlabel 'Length (mm)';
-        ylabel 'Signal Power (W)';
+        plot(x, signal_pwr)
+        xlabel 'Length (mm)'
+        ylabel 'Signal Power (W)'
         grid on;
         grid minor;
         
@@ -732,11 +709,11 @@ end
         idlergain = gain -  10*log10(power_wave2(1));
 %     hold on
         figure(5)
-        plot(x, idlergain);
-        xlabel 'Length (mm)';
-        ylabel 'Idler Gain (dB)';
-        grid on;
-        grid minor;
+        plot(x, idlergain)
+        xlabel 'Length (mm)'
+        ylabel 'Idler Gain (dB)'
+        grid on
+        grid minor
         fname = '/Users/robinlin/Desktop/Research/2019 Summer/Four_Wave_Mixing/Experiment_PIA_Gain_Nondegenerate';
         fng = sprintf('%0.2f nm, pump1 wl = %0.2f nm, pump2 wl = %0.2f nm, pump1 power = %0.2f mW, pump2 power = %0.2f mW Idler Gain.eps', wl, pl1, pl2, pump1, pump2);
         saveas(gcf, fullfile(fname,fng));

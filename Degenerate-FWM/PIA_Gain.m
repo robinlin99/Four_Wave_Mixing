@@ -1,9 +1,5 @@
 function [x_vec,s_gain,signalgain] = PIA_Gain(wl, pump, pl)
 
-%  2-D BPM code
-%  chi3 (quadratic) nonlinear material
-%  PIA_Gain(wl, pump, pl, isTE)
-
 format long
 simm=1;
 t0=clock;
