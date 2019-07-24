@@ -191,8 +191,8 @@ alpha_wave4_o = 200;
 
 n2_wave1_o = 100e-20;            %SH3
 n2_wave2_o = 100e-20;
-n2_wave3_o = 600e-20;
-n2_wave4_o = 600e-20;
+n2_wave3_o = 100e-20;
+n2_wave4_o = 100e-20;
 %% alpha2 two photon absorption
 a2_wave1_o = 1.5e-12;                 % SH3
 a2_wave2_o = 1.5e-12;
@@ -221,6 +221,7 @@ x = 0:0.01:1;
 % K1 and K2 -> Idler
 % K3 -> Pump
 deltak_d = k_wave3_d + k_wave4_d - k_wave1_d - k_wave2_d;
+deltak_d = -1*deltak_d;
 deltak_o = deltak_d;
 
 lc_d = pi/deltak_d; % coherent length in disordered material

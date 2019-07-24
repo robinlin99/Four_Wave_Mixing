@@ -601,7 +601,7 @@ end
         else
             signalgain = 0;
         end
-        fname = '/Users/robinlin/Desktop/Research/2019 Summer/Four_Wave_Mixing/Experiment_PIA_Gain'
+        fname = '/Users/robinlin/Desktop/Research/2019 Summer/Four_Wave_Mixing/Experiment_PIA_Gain';
         xlabel 'Length (mm)'
         ylabel 'Signal Gain (dB)'
         grid on
@@ -651,7 +651,7 @@ end
         ylabel 'Idler Gain (dB)'
         grid on
         grid minor
-        fname = '/Users/robinlin/Desktop/Research/2019 Summer/Four_Wave_Mixing/Experiment_PIA_Gain'
+        fname = '/Users/robinlin/Desktop/Research/2019 Summer/Four_Wave_Mixing/Experiment_PIA_Gain';
         fng = sprintf('%0.2f nm, pump wl = %0.2f nm, pump = %0.2f mW Idler Gain.eps', wl, pl, pump);
         saveas(gcf, fullfile(fname,fng));
  %%   Commented out for now
