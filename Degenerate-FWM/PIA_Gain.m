@@ -171,7 +171,7 @@ alpha_wave1_o = 200;
 
 n2_wave1_o = 100e-20;            %SH3
 n2_wave2_o = 100e-20;
-n2_wave3_o = 600e-20;
+n2_wave3_o = 100e-20;
 %% alpha2 two photon absorption
 a2_wave1_o = 1.5e-12;                 % SH3
 a2_wave2_o = 1.5e-12;

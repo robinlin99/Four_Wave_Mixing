@@ -1,4 +1,4 @@
-function [] = PIA_Gain_4wave(wl, pump1, pump2, pl1, pl2)
+function [x_vec,s_gain,signalgain] = PIA_Gain_4wave(wl, pump1, pump2, pl1, pl2)
 format long
 simm=1;
 t0=clock;
@@ -658,6 +658,23 @@ end
         % Maximum on interval [0.5,1mm]
         % Check if gain at end of device is higher than the gain at the
         % front of the device
+        sz = size(signal_gain);
+        half_index = round(sz(2)/2);
+        first_seg = zeros(1,half_index);
+        second_seg = zeros(1,sz(2)-half_index);
+        min_gain = 0;
+        max_gain = 0;
+        signalgain = 0;
+        % sz = [1 length_of_array]
+        if signal_gain(1) < signal_gain(sz(2))
+            first_seg = signal_gain(1:half_index);
+            second_seg = signal_gain(half_index+1:sz(2));
+            min_gain = min(first_seg);
+            max_gain= max(second_seg);
+            signalgain = max_gain - min_gain; 
+        else
+            signalgain = 0;
+        end
         fname = '/Users/robinlin/Desktop/Research/2019 Summer/Four_Wave_Mixing/Experiment_PIA_Gain_Nondegenerate';
         xlabel 'Length (mm)'
         ylabel 'Signal Gain (dB)'
