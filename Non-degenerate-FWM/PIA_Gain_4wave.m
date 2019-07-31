@@ -210,8 +210,8 @@ T0_wave4=T0;
 f0 = 80e6; % repetition rate of pump laser
 
 
-amp_wave4_sqar=(1.09375*0.2*pump2*0.75*10e2)*2^(gradual-1);  %peak power for pulsed pump electric field is square root
-amp_wave3_sqar=(1.09375*0.2*pump1*0.75*10e2)*2^(gradual-1);  %peak power for pulsed pump electric field is square root
+amp_wave4_sqar=(1.09375*0.2*pump2*0.75*1000)*2^(gradual-1);  %peak power for pulsed pump electric field is square root
+amp_wave3_sqar=(1.09375*0.2*pump1*0.75*1000)*2^(gradual-1);  %peak power for pulsed pump electric field is square root
 amp_wave1_sqar=1e3*1e-12;
 amp_wave2_sqar=1e-20;
 x = 0:0.01:1;
