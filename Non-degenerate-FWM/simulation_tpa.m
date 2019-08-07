@@ -16,7 +16,7 @@ function [] = simulation_tpa(l,pump1_l,pump2_l,pump1,pump2)
     [x_vec3,s_gain3,sig_gain3] = PIA_Gain_4wave(l,pump1, pump2,pump1_l,pump2_l,2);
     [x_vec4,s_gain4,sig_gain4] = PIA_Gain_4wave(l,pump1, pump2,pump1_l,pump2_l,3);
 
-    % plot for different values of tpa
+    % plot for different values of tpa 
     figure;
     plot(x_vec1,s_gain1);
     hold on
