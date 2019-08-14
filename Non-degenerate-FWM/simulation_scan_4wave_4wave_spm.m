@@ -42,6 +42,7 @@ function [] = simulation_scan_4wave_4wave_spm(min,max)
     plot(wavelength,sig_gain_arr60);
     xlabel 'Wavelength (nm)'
     ylabel 'Gain (dB)'
+    legend('30 mW','40 mW', '50 mW','60 mW');
     grid on
     grid minor
     fname = '/Users/robinlin/Desktop/Research/2019 Summer/Four_Wave_Mixing/Experiment_Scanner_Nondegenerate_spm';
