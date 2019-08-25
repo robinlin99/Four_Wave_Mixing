@@ -46,6 +46,6 @@ function [] = simulation_scan_4wave_4wave_spm(min,max)
     grid on
     grid minor
     fname = '/Users/robinlin/Desktop/Research/2019 Summer/Four_Wave_Mixing/Experiment_Scanner_Nondegenerate_spm';
-    fng = sprintf('SPM Nondegenerate Signal Gain.eps');
+    fng = sprintf('SPM Nondegenerate Signal Gain.png');
     saveas(gcf, fullfile(fname,fng));
 end
